@@ -26,4 +26,19 @@ public class MessageResult<T>  implements Serializable {
      * 数据结果
      */
     private T result;
+
+    public MessageResult( ) {
+    }
+
+    public MessageResult(Integer code, String msg, T result) {
+        this.code = code;
+        this.msg = msg;
+        this.result = result;
+    }
+
+    public MessageResult(ErrorCodeEnum errorCodeEnum, T result) {
+        this.code = errorCodeEnum.getCode();
+        this.msg = errorCodeEnum.getMsg();
+        this.result = result;
+    }
 }
