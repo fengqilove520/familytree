@@ -1,0 +1,9 @@
+server:
+  port: 8080
+#集成mysql数据库的配置
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/familytree
+    username: root
+    password: 123456
