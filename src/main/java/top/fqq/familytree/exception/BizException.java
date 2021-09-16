@@ -8,7 +8,7 @@ import top.fqq.familytree.bean.ErrorCodeEnum;
  * @date 2021/9/15 14:29
  */
 @Data
-public class FqqException extends RuntimeException {
+public class BizException extends RuntimeException {
     /**
      * 错误码
      */
@@ -19,17 +19,17 @@ public class FqqException extends RuntimeException {
      */
     private String message;
 
-    public FqqException() {
+    public BizException() {
         super();
     }
 
-    public FqqException(String message) {
+    public BizException(String message) {
         super(message);
         this.code = ErrorCodeEnum.BIZ_ERROR.getCode();
         this.message = message;
     }
 
-    public FqqException(Integer code, String message) {
+    public BizException(Integer code, String message) {
         super(message);
         this.code = code;
         this.message = message;
@@ -41,7 +41,7 @@ public class FqqException extends RuntimeException {
      * @param msg
      * @param exception
      */
-    public FqqException(String msg, Throwable exception) {
+    public BizException(String msg, Throwable exception) {
         super(msg);
         exception.printStackTrace();
     }
@@ -51,7 +51,7 @@ public class FqqException extends RuntimeException {
      *
      * @param exception
      */
-    public FqqException(Throwable exception) {
+    public BizException(Throwable exception) {
         super(exception);
         exception.printStackTrace();
     }

@@ -26,8 +26,8 @@ public class GlobalExecptionHandler {
         return result;
     }
 
-    @ExceptionHandler(value = FqqException.class)
-    public MessageResult<Object> errorHandle(FqqException e) {
+    @ExceptionHandler(value = BizException.class)
+    public MessageResult<Object> errorHandle(BizException e) {
         MessageResult<Object> result = new MessageResult<>();
         result.setCode(e.getCode());
         result.setMsg(e.getMessage());
