@@ -24,13 +24,13 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonVo getById(String id) {
-        PersonVo personPo=dao.selectByPrimaryKey(id);
-        return null;
+        PersonVo personVo=dao.selectByPrimaryKey(id);
+        return personVo;
     }
 
     @Override
     public PageInfo<PersonVo> getPageList(PersonListDto personListDto) {
-        PageHelper.startPage(1, 5);
+        PageHelper.startPage(personListDto);
         List<PersonVo> personVos =dao.select(personListDto);
         PageInfo<PersonVo> pageInfo =PageInfo.of(personVos);
         return pageInfo;

@@ -24,16 +24,16 @@ public class PersonController {
     private PersonService personService;
 
 
-    @PostMapping("getPerson")
-    public MessageResult<PersonVo> getPerson(@RequestBody String id) {
+    @PostMapping("getDetail")
+    public MessageResult<PersonVo> getDetail(@RequestBody String id) {
         PersonVo personVo=personService.getById(id);
         return new MessageResult<>(ErrorCodeEnum.SUCCESS,personVo);
     }
 
-    @PostMapping("getPersons")
-    public MessageResult<PageInfo<PersonVo>> getPersons(@RequestBody PersonListDto personListDto) {
+    @PostMapping("getPage")
+    public MessageResult<PageInfo<PersonVo>> getPage(@RequestBody PersonListDto personListDto) {
         PageInfo<PersonVo> pageInfo=personService.getPageList(personListDto);
-        return new MessageResult<>(ErrorCodeEnum.SUCCESS,pageInfo);
+        return MessageResult.success(pageInfo);
     }
 
 

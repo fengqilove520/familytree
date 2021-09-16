@@ -41,4 +41,8 @@ public class MessageResult<T>  implements Serializable {
         this.msg = errorCodeEnum.getMsg();
         this.result = result;
     }
+
+    public static MessageResult success(Object result){
+        return new MessageResult(ErrorCodeEnum.SUCCESS,result);
+    }
 }
