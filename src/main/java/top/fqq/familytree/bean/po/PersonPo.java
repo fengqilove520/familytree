@@ -37,6 +37,26 @@ public class PersonPo implements Serializable {
     private String residentialAddress;
 
     /**
+     * 出生时间
+     */
+    private Date birthTime;
+
+    /**
+     * 死亡时间
+     */
+    private Date deathTime;
+
+    /**
+     * 父编号
+     */
+    private String pid;
+
+    /**
+     * 配偶编号
+     */
+    private String mateId;
+
+    /**
      * 删除标记
      */
     private Boolean deleted;

@@ -1,7 +1,11 @@
 package top.fqq.familytree.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.po.PersonPo;
+import top.fqq.familytree.bean.vo.PersonVo;
+
+import java.util.List;
 
 @Mapper
 public interface PersonDao {
@@ -12,9 +16,16 @@ public interface PersonDao {
 
     int insertSelective(PersonPo record);
 
-    PersonPo selectByPrimaryKey(String id);
+    PersonVo selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(PersonPo record);
 
     int updateByPrimaryKey(PersonPo record);
+
+    /**
+     * 条件查询
+     * @param personListDto
+     * @return
+     */
+    List<PersonVo> select(PersonListDto personListDto);
 }
