@@ -1,5 +1,6 @@
 package top.fqq.familytree.intercept;
 
+import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.Interceptor;
@@ -9,23 +10,28 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import top.fqq.familytree.annotation.Dict;
-import top.fqq.familytree.bean.vo.DictVo;
-import top.fqq.familytree.service.DictService;
+import top.fqq.familytree.bean.MessageResult;
 
 import java.lang.reflect.Field;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * 字典转义
+ * 字典转义（有问题）
  *
  * @author fitch
  * @date 2021/9/16 14:12
  */
 @Slf4j
+@Component
 @Intercepts(@Signature(
         type = ResultSetHandler.class,
         method = "handleResultSets",
@@ -33,7 +39,14 @@ import java.util.stream.Stream;
 public class DictPluginIntercept implements Interceptor {
 
     @Autowired
-    private DictService dictService;
+    private RestTemplate template;
+
+    @Value("${server.port:8080}")
+    private int port;
+
+    @Value("${server.servlet.context-path:/}")
+    private String path;
+
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -42,13 +55,25 @@ public class DictPluginIntercept implements Interceptor {
         records.forEach(item -> {
             this.toProcessDictType(item, dictTypes);
         });
-        List<DictVo> dictVos = dictService.getDictListByTypes(dictTypes);
-        records.forEach(item -> {
-            this.processDict(item, dictVos);
-        });
+
+        if (CollUtil.isNotEmpty(dictTypes)) {
+            // TODO 研究怎么走server层不和pagehelper 冲突,暂时先从前台走一圈
+            String url = "http://localhost:" + this.port + "/" + path + "/api/dict/getDictListByTypes";
+            ResponseEntity<MessageResult> result = template.postForEntity(url, dictTypes, MessageResult.class);
+            List<LinkedHashMap<String, Object>> linkedHashMaps = (List<LinkedHashMap<String, Object>>) result.getBody().getResult();
+            records.forEach(item -> {
+                this.processDict(item, linkedHashMaps);
+            });
+        }
         return records;
     }
 
+    /**
+     * 处理字典类型
+     *
+     * @param source
+     * @param dictTypes
+     */
     private void toProcessDictType(Object source, List<String> dictTypes) {
         // 拿到返回值类型
         Class<?> sourceClass = source.getClass();
@@ -70,7 +95,13 @@ public class DictPluginIntercept implements Interceptor {
                 });
     }
 
-    private void processDict(Object source, List<DictVo> dictVos) {
+    /**
+     * 处理字典数据
+     *
+     * @param source
+     * @param linkedHashMaps
+     */
+    private void processDict(Object source, List<LinkedHashMap<String, Object>> linkedHashMaps) {
         // 拿到返回值类型
         Class<?> sourceClass = source.getClass();
         // 提取被 Dict 注解标注的属性使用的字典类型
@@ -82,7 +113,7 @@ public class DictPluginIntercept implements Interceptor {
                     if (fieldTemp.getType() == Integer.class || fieldTemp.getType() == String.class) {
                         fieldTemp.setAccessible(true);
                         Object value = fieldTemp.get(source);
-                        String valueStr = this.getDict(dict.type(), value, dictVos);
+                        String valueStr = this.getDict(dict.type(), value, linkedHashMaps);
                         field.setAccessible(true);
                         field.set(source, valueStr);
                     } else {
@@ -102,13 +133,13 @@ public class DictPluginIntercept implements Interceptor {
      *
      * @param type
      * @param code
-     * @param dictVos
+     * @param linkedHashMaps
      * @return
      */
-    private String getDict(String type, Object code, List<DictVo> dictVos) {
-        for (DictVo item : dictVos) {
-            if (item.getType().equals(type) && item.getCode().equals(String.valueOf(code))) {
-                return item.getName();
+    private String getDict(String type, Object code, List<LinkedHashMap<String, Object>> linkedHashMaps) {
+        for (LinkedHashMap<String, Object> item : linkedHashMaps) {
+            if (item.get("type").equals(type) && item.get("code").equals(String.valueOf(code))) {
+                return String.valueOf(item.get("name"));
             }
         }
         return null;
