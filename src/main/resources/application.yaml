@@ -12,3 +12,6 @@ mybatis:
 logging:
   level:
     top.fqq.familytree.dao: debug
+
+pagehelper:
+  page-size-zero: true

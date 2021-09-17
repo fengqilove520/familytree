@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
-import top.fqq.familytree.bean.po.PersonPo;
 import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.dao.PersonDao;
 import top.fqq.familytree.service.PersonService;
@@ -24,15 +23,15 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonVo getById(String id) {
-        PersonVo personVo=dao.selectByPrimaryKey(id);
+        PersonVo personVo = dao.selectByPrimaryKey(id);
         return personVo;
     }
 
     @Override
     public PageInfo<PersonVo> getPageList(PersonListDto personListDto) {
         PageHelper.startPage(personListDto);
-        List<PersonVo> personVos =dao.select(personListDto);
-        PageInfo<PersonVo> pageInfo =PageInfo.of(personVos);
+        List<PersonVo> personVos = dao.select(personListDto);
+        PageInfo<PersonVo> pageInfo = new PageInfo<>(personVos);
         return pageInfo;
     }
 }
