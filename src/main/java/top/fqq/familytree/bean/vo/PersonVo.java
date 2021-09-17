@@ -1,6 +1,7 @@
 package top.fqq.familytree.bean.vo;
 
 import lombok.Data;
+import top.fqq.familytree.annotation.Dict;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,7 +26,13 @@ public class PersonVo implements Serializable {
     /**
      * 性别
      */
-    private Boolean sex;
+    private Integer sex;
+
+    /**
+     * 性别
+     */
+    @Dict(codeFiled = "sex", type = "sex")
+    private String sexValue;
 
     /**
      * 户籍地址

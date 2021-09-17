@@ -9,4 +9,5 @@ import top.fqq.familytree.bean.dto.BaseDto;
  */
 @Data
 public class PersonListDto extends BaseDto {
+
 }

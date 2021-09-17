@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.fqq.familytree.dao.DictDao">
+    <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.vo.DictVo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="name_en" jdbcType="VARCHAR" property="nameEn"/>
+        <result column="orders" jdbcType="SMALLINT" property="orders"/>
+        <result column="par_type" jdbcType="VARCHAR" property="parType"/>
+        <result column="par_code" jdbcType="VARCHAR" property="parCode"/>
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, `type`, type_name, code, `name`, name_en, orders, par_type, par_code, deleted,
+      create_user, create_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from dict
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getDictListByTypes" resultType="top.fqq.familytree.bean.vo.DictVo">
+        select
+        <include refid="Base_Column_List"/>
+        from dict
+        <where>
+            and `type` in (
+            <foreach collection="list" item="item">
+                #{item}
+            </foreach>
+            )
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from dict
+      where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="top.fqq.familytree.bean.vo.DictVo">
+      insert into dict (id, `type`, type_name,
+        code, `name`, name_en,
+        orders, par_type, par_code,
+        deleted, create_user, create_time
+        )
+      values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR},
+        #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR},
+        #{orders,jdbcType=SMALLINT}, #{parType,jdbcType=VARCHAR}, #{parCode,jdbcType=VARCHAR},
+        #{deleted,jdbcType=BOOLEAN}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="top.fqq.familytree.bean.vo.DictVo">
+        insert into dict
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="typeName != null">
+                type_name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="nameEn != null">
+                name_en,
+            </if>
+            <if test="orders != null">
+                orders,
+            </if>
+            <if test="parType != null">
+                par_type,
+            </if>
+            <if test="parCode != null">
+                par_code,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="nameEn != null">
+                #{nameEn,jdbcType=VARCHAR},
+            </if>
+            <if test="orders != null">
+                #{orders,jdbcType=SMALLINT},
+            </if>
+            <if test="parType != null">
+                #{parType,jdbcType=VARCHAR},
+            </if>
+            <if test="parCode != null">
+                #{parCode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.vo.DictVo">
+        update dict
+        <set>
+            <if test="type != null">
+                `type` = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                type_name = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="nameEn != null">
+                name_en = #{nameEn,jdbcType=VARCHAR},
+            </if>
+            <if test="orders != null">
+                orders = #{orders,jdbcType=SMALLINT},
+            </if>
+            <if test="parType != null">
+                par_type = #{parType,jdbcType=VARCHAR},
+            </if>
+            <if test="parCode != null">
+                par_code = #{parCode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.vo.DictVo">
+      update dict
+      set `type` = #{type,jdbcType=VARCHAR},
+        type_name = #{typeName,jdbcType=VARCHAR},
+        code = #{code,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
+        name_en = #{nameEn,jdbcType=VARCHAR},
+        orders = #{orders,jdbcType=SMALLINT},
+        par_type = #{parType,jdbcType=VARCHAR},
+        par_code = #{parCode,jdbcType=VARCHAR},
+        deleted = #{deleted,jdbcType=BOOLEAN},
+        create_user = #{createUser,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>
