@@ -9,6 +9,7 @@ import top.fqq.familytree.bean.MessageResult;
 
 /**
  * 全局异常处理
+ *
  * @author fitch
  * @date 2021/9/15 14:18
  */
