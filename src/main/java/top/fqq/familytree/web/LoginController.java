@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.login.LoginDto;
+import top.fqq.familytree.bean.dto.login.LoginVo;
 
 /**
  * @author fitch
@@ -17,7 +18,9 @@ public class LoginController {
 
     @PostMapping("login")
     public MessageResult<String> login(@RequestBody LoginDto loginDto) {
-        return MessageResult.success("");
+        LoginVo loginVo = new LoginVo();
+        loginVo.setToken(loginDto.getUsername());
+        return MessageResult.success(loginVo);
     }
 
 }

@@ -60,7 +60,7 @@ public class DictPluginIntercept implements Interceptor {
             // TODO 研究怎么走server层不和pagehelper 冲突,暂时先从前台走一圈
             String url = "http://localhost:" + this.port + "/" + path + "/api/dict/getDictListByTypes";
             ResponseEntity<MessageResult> result = template.postForEntity(url, dictTypes, MessageResult.class);
-            List<LinkedHashMap<String, Object>> linkedHashMaps = (List<LinkedHashMap<String, Object>>) result.getBody().getResult();
+            List<LinkedHashMap<String, Object>> linkedHashMaps = (List<LinkedHashMap<String, Object>>) result.getBody().getData();
             records.forEach(item -> {
                 this.processDict(item, linkedHashMaps);
             });
