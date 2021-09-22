@@ -11,6 +11,7 @@ import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.service.PersonService;
+import top.fqq.familytree.util.RedisUtil;
 
 /**
  * @author fitch
@@ -22,6 +23,9 @@ public class PersonController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
 
     @PostMapping("getDetail")
@@ -39,9 +43,6 @@ public class PersonController {
 
     @PostMapping("test")
     public MessageResult<String> test() throws Exception {
-        if (true) {
-            throw new Exception("测试错误信息");
-        }
         return new MessageResult<>();
     }
 
