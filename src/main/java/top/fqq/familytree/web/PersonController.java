@@ -26,22 +26,23 @@ public class PersonController {
 
     @PostMapping("getDetail")
     public MessageResult<PersonVo> getDetail(@RequestBody String id) {
-        PersonVo personVo=personService.getById(id);
-        return new MessageResult<>(ErrorCodeEnum.SUCCESS,personVo);
+        PersonVo personVo = personService.getById(id);
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, personVo);
     }
 
     @PostMapping("getPage")
     public MessageResult<PageInfo<PersonVo>> getPage(@RequestBody PersonListDto personListDto) {
-        PageInfo<PersonVo> pageInfo=personService.getPageList(personListDto);
+        PageInfo<PersonVo> pageInfo = personService.getPageList(personListDto);
         return MessageResult.success(pageInfo);
     }
 
 
     @PostMapping("test")
     public MessageResult<String> test() throws Exception {
-        if(true){
+        if (true) {
             throw new Exception("测试错误信息");
         }
         return new MessageResult<>();
     }
+
 }

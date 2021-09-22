@@ -2,6 +2,8 @@ package top.fqq.familytree.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import top.fqq.familytree.bean.dto.dict.DictPageDto;
+import top.fqq.familytree.bean.po.DictPo;
+import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 
 import java.util.List;
@@ -11,15 +13,15 @@ public interface DictDao {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(DictVo record);
+    int insert(DictPo record);
 
-    int insertSelective(DictVo record);
+    int insertSelective(DictPo record);
 
     DictVo selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(DictVo record);
+    int updateByPrimaryKeySelective(DictPo record);
 
-    int updateByPrimaryKey(DictVo record);
+    int updateByPrimaryKey(DictPo record);
 
     /**
      * 根据 类型集合查询字典数据
@@ -36,4 +38,11 @@ public interface DictDao {
      * @return
      */
     List<DictVo> select(DictPageDto dictPageDto);
+
+    /**
+     * 列表查询
+     *
+     * @return
+     */
+    List<DictTypeVo> selectType();
 }

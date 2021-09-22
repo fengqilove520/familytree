@@ -1,14 +1,20 @@
 package top.fqq.familytree.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.UUID;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.fqq.familytree.bean.dto.dict.DictDto;
 import top.fqq.familytree.bean.dto.dict.DictPageDto;
+import top.fqq.familytree.bean.po.DictPo;
+import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 import top.fqq.familytree.dao.DictDao;
 import top.fqq.familytree.service.DictService;
+import top.fqq.familytree.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +44,41 @@ public class DictServiceImpl implements DictService {
         List<DictVo> personVos = dao.select(dictPageDto);
         PageInfo<DictVo> pageInfo = new PageInfo<>(personVos);
         return pageInfo;
+    }
+
+    @Override
+    public List<DictTypeVo> getTypeList() {
+        List<DictTypeVo> dictTypeVos = dao.selectType();
+        return dictTypeVos;
+    }
+
+    @Override
+    public Integer save(DictDto dictDto) {
+        Integer result = 0;
+        if (StringUtil.isEmpty(dictDto.getId())) {
+            result = this.insert(dictDto);
+        } else {
+            result = this.update(dictDto);
+        }
+        return result;
+    }
+
+    @Override
+    public Integer delete(String id) {
+        Integer result = dao.deleteByPrimaryKey(id);
+        return result;
+    }
+
+    private Integer update(DictDto dictDto) {
+        DictPo dictPo = new DictPo();
+        BeanUtil.copyProperties(dictDto, dictPo);
+        return dao.insert(dictPo);
+    }
+
+    private Integer insert(DictDto dictDto) {
+        DictPo dictPo = new DictPo();
+        dictPo.setId(UUID.fastUUID().toString());
+        BeanUtil.copyProperties(dictDto, dictPo);
+        return dao.updateByPrimaryKeySelective(dictPo);
     }
 }

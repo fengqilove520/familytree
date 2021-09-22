@@ -14,10 +14,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
-
 logging:
   level:
     top.fqq.familytree.dao: debug
 
 pagehelper:
   page-size-zero: true
+

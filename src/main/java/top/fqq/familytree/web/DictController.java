@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.dto.dict.DictDto;
 import top.fqq.familytree.bean.dto.dict.DictPageDto;
+import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 import top.fqq.familytree.service.DictService;
 
@@ -48,5 +51,31 @@ public class DictController {
     public MessageResult<PageInfo<DictVo>> getPage(@RequestBody DictPageDto dictPageDto) {
         PageInfo<DictVo> dictVos = dictService.getPageList(dictPageDto);
         return MessageResult.success(dictVos);
+    }
+
+
+    /**
+     * 查询类型列表
+     *
+     * @return
+     */
+    @PostMapping("/getTypeList")
+    public MessageResult<List<DictTypeVo>> getTypeList() {
+        List<DictTypeVo> result = dictService.getTypeList();
+        return MessageResult.success(result);
+    }
+
+
+    @PostMapping("save")
+    public MessageResult<Integer> save(@RequestBody DictDto dictDto) {
+        Integer result = dictService.save(dictDto);
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
+    }
+
+
+    @PostMapping("delete")
+    public MessageResult<Integer> delete(@RequestBody String id) {
+        Integer result = dictService.delete(id);
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
     }
 }

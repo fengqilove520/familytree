@@ -19,6 +19,7 @@
       id, `type`, type_name, code, `name`, name_en, orders, par_type, par_code, deleted,
       create_user, create_time
     </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -38,17 +39,32 @@
             )
         </where>
     </select>
+
     <select id="select" resultType="top.fqq.familytree.bean.vo.DictVo">
         select
         <include refid="Base_Column_List"/>
         from dict
+        <where>
+            <if test="type != null and type != ''">
+                and type =#{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectType" resultType="top.fqq.familytree.bean.vo.DictTypeVo">
+        SELECT
+            type,
+            type_name
+        FROM
+            dict
+            group by type,type_name
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
       delete from dict
       where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="top.fqq.familytree.bean.vo.DictVo">
+    <insert id="insert" parameterType="top.fqq.familytree.bean.po.DictPo">
       insert into dict (id, `type`, type_name,
         code, `name`, name_en,
         orders, par_type, par_code,
@@ -61,7 +77,7 @@
         )
     </insert>
 
-    <insert id="insertSelective" parameterType="top.fqq.familytree.bean.vo.DictVo">
+    <insert id="insertSelective" parameterType="top.fqq.familytree.bean.po.DictPo">
         insert into dict
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -140,7 +156,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.vo.DictVo">
+    <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.po.DictPo">
         update dict
         <set>
             <if test="type != null">
@@ -179,7 +195,7 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.vo.DictVo">
+    <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.po.DictPo">
       update dict
       set `type` = #{type,jdbcType=VARCHAR},
         type_name = #{typeName,jdbcType=VARCHAR},
