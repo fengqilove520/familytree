@@ -11,7 +11,6 @@ import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.service.PersonService;
-import top.fqq.familytree.util.RedisUtil;
 
 /**
  * @author fitch
@@ -23,9 +22,6 @@ public class PersonController {
 
     @Autowired
     private PersonService personService;
-
-    @Autowired
-    private RedisUtil redisUtil;
 
 
     @PostMapping("getDetail")
@@ -39,11 +35,4 @@ public class PersonController {
         PageInfo<PersonVo> pageInfo = personService.getPageList(personListDto);
         return MessageResult.success(pageInfo);
     }
-
-
-    @PostMapping("test")
-    public MessageResult<String> test() throws Exception {
-        return new MessageResult<>();
-    }
-
 }

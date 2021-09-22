@@ -42,7 +42,6 @@ public class DictController {
         return MessageResult.success(dictVos);
     }
 
-
     /**
      * 根据字典类型查询字典列表
      *
@@ -54,7 +53,6 @@ public class DictController {
         PageInfo<DictVo> dictVos = dictService.getPageList(dictPageDto);
         return MessageResult.success(dictVos);
     }
-
 
     /**
      * 查询类型列表
@@ -78,13 +76,11 @@ public class DictController {
         return MessageResult.success(result);
     }
 
-
     @PostMapping("save")
     public MessageResult<Integer> save(@RequestBody DictDto dictDto) {
         Integer result = dictService.save(dictDto);
         return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
     }
-
 
     @PostMapping("delete")
     public MessageResult<Integer> delete(@RequestBody String id) {
