@@ -1,6 +1,7 @@
 package top.fqq.familytree.bean.dto.dict;
 
 import lombok.Data;
+import top.fqq.familytree.bean.dto.BaseDto;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Date;
  * @date 2021/9/16 16:05
  */
 @Data
-public class DictDto implements Serializable {
+public class DictPageDto extends BaseDto implements Serializable {
 
     /**
      * 主键

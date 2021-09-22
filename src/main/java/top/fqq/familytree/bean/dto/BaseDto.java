@@ -11,7 +11,7 @@ public class BaseDto {
     private Integer pageSize;
 
     public Integer getPageNum() {
-        return pageNum == null ? 0 : pageNum;
+        return pageNum == null ? 1 : pageNum;
     }
 
     public void setPageNum(Integer pageNum) {
@@ -19,7 +19,7 @@ public class BaseDto {
     }
 
     public Integer getPageSize() {
-        return pageSize == null ? 0 : pageSize;
+        return pageSize == null ? 10 : pageSize;
     }
 
     public void setPageSize(Integer pageSize) {

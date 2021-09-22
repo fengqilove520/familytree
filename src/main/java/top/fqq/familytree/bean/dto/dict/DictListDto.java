@@ -1,6 +1,7 @@
 package top.fqq.familytree.bean.dto.dict;
 
 import lombok.Data;
+import top.fqq.familytree.bean.dto.BaseDto;
 
 import java.io.Serializable;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
  * @date 2021/9/16 16:05
  */
 @Data
-public class DictListDto implements Serializable {
+public class DictListDto extends BaseDto implements Serializable {
 
     private String type;
 

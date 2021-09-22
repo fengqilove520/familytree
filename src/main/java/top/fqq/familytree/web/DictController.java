@@ -1,11 +1,13 @@
 package top.fqq.familytree.web;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.dto.dict.DictPageDto;
 import top.fqq.familytree.bean.vo.DictVo;
 import top.fqq.familytree.service.DictService;
 
@@ -32,6 +34,19 @@ public class DictController {
     @PostMapping("/getDictListByTypes")
     public MessageResult<List<DictVo>> getDictListByTypes(@RequestBody List<String> types) {
         List<DictVo> dictVos = dictService.getDictListByTypes(types);
+        return MessageResult.success(dictVos);
+    }
+
+
+    /**
+     * 根据字典类型查询字典列表
+     *
+     * @param dictPageDto
+     * @return
+     */
+    @PostMapping("/getPage")
+    public MessageResult<PageInfo<DictVo>> getPage(@RequestBody DictPageDto dictPageDto) {
+        PageInfo<DictVo> dictVos = dictService.getPageList(dictPageDto);
         return MessageResult.success(dictVos);
     }
 }

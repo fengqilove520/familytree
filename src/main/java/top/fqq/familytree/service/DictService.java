@@ -1,5 +1,7 @@
 package top.fqq.familytree.service;
 
+import com.github.pagehelper.PageInfo;
+import top.fqq.familytree.bean.dto.dict.DictPageDto;
 import top.fqq.familytree.bean.vo.DictVo;
 
 import java.util.List;
@@ -16,4 +18,12 @@ public interface DictService {
      * @return
      */
     List<DictVo> getDictListByTypes(List<String> types);
+
+    /**
+     * 查询分页数据
+     *
+     * @param dictPageDto
+     * @return
+     */
+    PageInfo<DictVo> getPageList(DictPageDto dictPageDto);
 }

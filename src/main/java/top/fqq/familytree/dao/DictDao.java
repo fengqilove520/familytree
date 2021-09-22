@@ -1,6 +1,7 @@
 package top.fqq.familytree.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import top.fqq.familytree.bean.dto.dict.DictPageDto;
 import top.fqq.familytree.bean.vo.DictVo;
 
 import java.util.List;
@@ -27,4 +28,12 @@ public interface DictDao {
      * @return
      */
     List<DictVo> getDictListByTypes(List<String> types);
+
+    /**
+     * 列表查询
+     *
+     * @param dictPageDto
+     * @return
+     */
+    List<DictVo> select(DictPageDto dictPageDto);
 }
