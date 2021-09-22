@@ -7,9 +7,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.fqq.familytree.bean.dto.dict.DictCodeDto;
 import top.fqq.familytree.bean.dto.dict.DictDto;
 import top.fqq.familytree.bean.dto.dict.DictPageDto;
 import top.fqq.familytree.bean.po.DictPo;
+import top.fqq.familytree.bean.vo.DictCodeVo;
 import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 import top.fqq.familytree.dao.DictDao;
@@ -67,6 +69,11 @@ public class DictServiceImpl implements DictService {
     public Integer delete(String id) {
         Integer result = dao.deleteByPrimaryKey(id);
         return result;
+    }
+
+    @Override
+    public List<DictCodeVo> getCodeList(DictCodeDto dictCodeDto) {
+        return dao.getCodeList(dictCodeDto);
     }
 
     private Integer update(DictDto dictDto) {

@@ -1,8 +1,10 @@
 package top.fqq.familytree.service;
 
 import com.github.pagehelper.PageInfo;
+import top.fqq.familytree.bean.dto.dict.DictCodeDto;
 import top.fqq.familytree.bean.dto.dict.DictDto;
 import top.fqq.familytree.bean.dto.dict.DictPageDto;
+import top.fqq.familytree.bean.vo.DictCodeVo;
 import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 
@@ -51,4 +53,12 @@ public interface DictService {
      * @return
      */
     Integer delete(String id);
+
+    /**
+     * 查询字典数据
+     *
+     * @param dictCodeDto
+     * @return
+     */
+    List<DictCodeVo> getCodeList(DictCodeDto dictCodeDto);
 }

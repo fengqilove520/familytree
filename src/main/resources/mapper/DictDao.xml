@@ -57,7 +57,19 @@
             type_name
         FROM
             dict
-            group by type,type_name
+        where type is not null
+        group by type,type_name
+    </select>
+
+
+    <select id="getCodeList" resultType="top.fqq.familytree.bean.vo.DictCodeVo">
+        select
+        code,
+        name
+        from dict
+        <where>
+            and type =#{type}
+        </where>
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

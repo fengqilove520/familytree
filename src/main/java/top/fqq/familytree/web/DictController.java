@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.dto.dict.DictCodeDto;
 import top.fqq.familytree.bean.dto.dict.DictDto;
 import top.fqq.familytree.bean.dto.dict.DictPageDto;
+import top.fqq.familytree.bean.vo.DictCodeVo;
 import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 import top.fqq.familytree.service.DictService;
@@ -62,6 +64,17 @@ public class DictController {
     @PostMapping("/getTypeList")
     public MessageResult<List<DictTypeVo>> getTypeList() {
         List<DictTypeVo> result = dictService.getTypeList();
+        return MessageResult.success(result);
+    }
+
+    /**
+     * 查询类型列表
+     *
+     * @return
+     */
+    @PostMapping("/getCodeList")
+    public MessageResult<List<DictCodeVo>> getCodeList(@RequestBody DictCodeDto dictCodeDto) {
+        List<DictCodeVo> result = dictService.getCodeList(dictCodeDto);
         return MessageResult.success(result);
     }
 
