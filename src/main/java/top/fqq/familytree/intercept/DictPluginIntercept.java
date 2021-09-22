@@ -53,7 +53,9 @@ public class DictPluginIntercept implements Interceptor {
         List<Object> records = (List<Object>) invocation.proceed();
         List<String> dictTypes = new ArrayList<>();
         records.forEach(item -> {
-            this.toProcessDictType(item, dictTypes);
+            if (null != item) {
+                this.toProcessDictType(item, dictTypes);
+            }
         });
 
         if (CollUtil.isNotEmpty(dictTypes)) {

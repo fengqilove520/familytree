@@ -72,13 +72,14 @@ public class DictServiceImpl implements DictService {
     private Integer update(DictDto dictDto) {
         DictPo dictPo = new DictPo();
         BeanUtil.copyProperties(dictDto, dictPo);
-        return dao.insert(dictPo);
+        return dao.updateByPrimaryKeySelective(dictPo);
     }
 
     private Integer insert(DictDto dictDto) {
         DictPo dictPo = new DictPo();
-        dictPo.setId(UUID.fastUUID().toString());
+        dictDto.setId(UUID.fastUUID().toString());
+        dictDto.setDeleted(false);
         BeanUtil.copyProperties(dictDto, dictPo);
-        return dao.updateByPrimaryKeySelective(dictPo);
+        return dao.insert(dictPo);
     }
 }
