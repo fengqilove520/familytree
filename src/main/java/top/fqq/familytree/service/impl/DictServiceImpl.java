@@ -56,7 +56,7 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public Integer save(DictDto dictDto) {
-        Integer result = 0;
+        Integer result;
         if (StringUtil.isEmpty(dictDto.getId())) {
             result = this.insert(dictDto);
         } else {

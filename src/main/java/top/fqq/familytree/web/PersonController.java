@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.dto.person.PersonDeleteDto;
+import top.fqq.familytree.bean.dto.person.PersonDto;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.service.PersonService;
@@ -34,5 +36,17 @@ public class PersonController {
     public MessageResult<PageInfo<PersonVo>> getPage(@RequestBody PersonListDto personListDto) {
         PageInfo<PersonVo> pageInfo = personService.getPageList(personListDto);
         return MessageResult.success(pageInfo);
+    }
+
+    @PostMapping("save")
+    public MessageResult<Integer> save(@RequestBody PersonDto personDto) {
+        Integer result = personService.save(personDto);
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
+    }
+
+    @PostMapping("delete")
+    public MessageResult<Integer> delete(@RequestBody PersonDeleteDto personDeleteDto) {
+        Integer result = personService.delete(personDeleteDto);
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
     }
 }
