@@ -1,5 +1,6 @@
 package top.fqq.familytree.bean.dto.person;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import top.fqq.familytree.bean.dto.BaseDto;
 
@@ -39,11 +40,13 @@ public class PersonDto extends BaseDto {
     /**
      * 出生时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthTime;
 
     /**
      * 死亡时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deathTime;
 
     /**
