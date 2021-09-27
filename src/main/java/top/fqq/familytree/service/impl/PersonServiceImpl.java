@@ -123,6 +123,9 @@ public class PersonServiceImpl implements PersonService {
             if ((item.getId().equals(personListDto.getId()))) {
                 item.setPid(SysConst.ROOT_VALUE);
             }
+            if (StringUtil.isEmpty(item.getPid())) {
+                item.setPid(SysConst.ROOT_VALUE);
+            }
         });
 
         personVos = this.createTree(SysConst.ROOT_VALUE, personVos.stream().collect(groupingBy(PersonVo::getPid)));
