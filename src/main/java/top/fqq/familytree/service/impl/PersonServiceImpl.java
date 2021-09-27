@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.fqq.familytree.bean.SysConst;
 import top.fqq.familytree.bean.dto.person.PersonDeleteDto;
 import top.fqq.familytree.bean.dto.person.PersonDto;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
@@ -15,7 +16,13 @@ import top.fqq.familytree.dao.PersonDao;
 import top.fqq.familytree.service.PersonService;
 import top.fqq.familytree.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * @author fitch
@@ -106,5 +113,27 @@ public class PersonServiceImpl implements PersonService {
         personListDto.setIdsStr(idsStr);
         List<PersonVo> result = dao.select(personListDto);
         return result;
+    }
+
+    @Override
+    public List<PersonVo> getTree(PersonListDto personListDto) {
+        List<PersonVo> personVos = this.getChild(personListDto);
+        personVos.forEach(item -> {
+            if (StringUtil.isEmpty(item.getPid())) {
+                item.setPid(SysConst.ROOT_VALUE);
+            }
+        });
+
+        personVos = this.createTree(SysConst.ROOT_VALUE, personVos.stream().collect(groupingBy(PersonVo::getPid)));
+        return personVos;
+    }
+
+    private List<PersonVo> createTree(String pid, Map<String, List<PersonVo>> map) {
+        return Optional.ofNullable(map.get(pid)).orElseGet(() -> new ArrayList<>()).stream().filter(item -> item.getPid().equals(pid)).map(item -> {
+            PersonVo personVo = new PersonVo();
+            BeanUtil.copyProperties(item, personVo);
+            personVo.setChildren(createTree(item.getId(), map));
+            return personVo;
+        }).collect(Collectors.toList());
     }
 }

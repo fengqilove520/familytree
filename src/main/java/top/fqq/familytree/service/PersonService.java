@@ -80,4 +80,11 @@ public interface PersonService {
      * @return
      */
     List<PersonVo> getParent(PersonListDto personListDto);
+
+    /**
+     * 查询人员树
+     *
+     * @return
+     */
+    List<PersonVo> getTree(PersonListDto personListDto);
 }

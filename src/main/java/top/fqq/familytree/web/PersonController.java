@@ -69,4 +69,12 @@ public class PersonController {
         List<PersonVo> pageInfo = personService.getParent(personListDto);
         return MessageResult.success(pageInfo);
     }
+
+    @PostMapping("getTree")
+    public MessageResult<List<PersonVo>> getTree(@RequestBody PersonListDto personListDto) {
+        List<PersonVo> pageInfo = personService.getTree(personListDto);
+        return MessageResult.success(pageInfo);
+    }
+
+
 }

@@ -6,6 +6,7 @@ import top.fqq.familytree.annotation.Dict;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author fitch
@@ -81,6 +82,11 @@ public class PersonVo implements Serializable {
      * 创建人
      */
     private String createUser;
+
+    /**
+     * 子孙
+     */
+    private List<PersonVo> children;
 
     private static final long serialVersionUID = 1L;
 }
