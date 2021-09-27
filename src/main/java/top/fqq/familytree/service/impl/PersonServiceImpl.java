@@ -73,4 +73,10 @@ public class PersonServiceImpl implements PersonService {
         Integer result = dao.deleteByPrimaryKey(personDeleteDto.getId());
         return result;
     }
+
+    @Override
+    public List<PersonVo> getList(PersonListDto personListDto) {
+        List<PersonVo> personVos = dao.select(personListDto);
+        return personVos;
+    }
 }

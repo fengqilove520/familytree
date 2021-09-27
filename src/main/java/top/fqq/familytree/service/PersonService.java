@@ -6,6 +6,8 @@ import top.fqq.familytree.bean.dto.person.PersonDto;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.vo.PersonVo;
 
+import java.util.List;
+
 public interface PersonService {
 
     /**
@@ -38,4 +40,12 @@ public interface PersonService {
      * @return
      */
     Integer delete(PersonDeleteDto personDeleteDto);
+
+    /**
+     * 列表查询
+     *
+     * @param personListDto
+     * @return
+     */
+    List<PersonVo> getList(PersonListDto personListDto);
 }

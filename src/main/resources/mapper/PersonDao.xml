@@ -29,6 +29,11 @@
         select
         <include refid="Base_Column_List"/>
         from person
+        <where>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
       delete from person

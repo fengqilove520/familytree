@@ -14,6 +14,8 @@ import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.service.PersonService;
 
+import java.util.List;
+
 /**
  * @author fitch
  * @date 2021/9/15 14:13
@@ -48,5 +50,11 @@ public class PersonController {
     public MessageResult<Integer> delete(@RequestBody PersonDeleteDto personDeleteDto) {
         Integer result = personService.delete(personDeleteDto);
         return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
+    }
+
+    @PostMapping("getList")
+    public MessageResult<List<PersonVo>> getList(@RequestBody PersonListDto personListDto) {
+        List<PersonVo> pageInfo = personService.getList(personListDto);
+        return MessageResult.success(pageInfo);
     }
 }
