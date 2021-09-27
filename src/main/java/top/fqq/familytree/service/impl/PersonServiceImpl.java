@@ -119,7 +119,8 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonVo> getTree(PersonListDto personListDto) {
         List<PersonVo> personVos = this.getChild(personListDto);
         personVos.forEach(item -> {
-            if (StringUtil.isEmpty(item.getPid())) {
+            //标识根
+            if ((item.getId().equals(personListDto.getId()))) {
                 item.setPid(SysConst.ROOT_VALUE);
             }
         });
