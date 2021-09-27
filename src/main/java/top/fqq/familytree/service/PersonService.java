@@ -48,4 +48,36 @@ public interface PersonService {
      * @return
      */
     List<PersonVo> getList(PersonListDto personListDto);
+
+    /**
+     * 查询自己及子孙编号
+     *
+     * @param id
+     * @return
+     */
+    String getChildIds(String id);
+
+    /**
+     * 查询自己及祖先编号
+     *
+     * @param id
+     * @return
+     */
+    String getParentIds(String id);
+
+    /**
+     * 查询子孙
+     *
+     * @param personListDto
+     * @return
+     */
+    List<PersonVo> getChild(PersonListDto personListDto);
+
+    /**
+     * 查询祖先
+     *
+     * @param personListDto
+     * @return
+     */
+    List<PersonVo> getParent(PersonListDto personListDto);
 }

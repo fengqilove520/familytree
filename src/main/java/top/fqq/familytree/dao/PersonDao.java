@@ -57,4 +57,20 @@ public interface PersonDao {
      * @return
      */
     List<PersonVo> select(PersonListDto personListDto);
+
+    /**
+     * 查询自己及子孙编号
+     *
+     * @param id
+     * @return
+     */
+    String getChildIds(String id);
+
+    /**
+     * 查询自己及祖先编号
+     *
+     * @param id
+     * @return
+     */
+    String getParentIds(String id);
 }

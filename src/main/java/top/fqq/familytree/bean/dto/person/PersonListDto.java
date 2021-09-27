@@ -12,4 +12,8 @@ public class PersonListDto extends BaseDto {
 
     private Integer sex;
 
+    private String id;
+
+    private String idsStr;
+
 }

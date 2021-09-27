@@ -79,4 +79,32 @@ public class PersonServiceImpl implements PersonService {
         List<PersonVo> personVos = dao.select(personListDto);
         return personVos;
     }
+
+    @Override
+    public String getChildIds(String id) {
+        String result = dao.getChildIds(id);
+        return result;
+    }
+
+    @Override
+    public String getParentIds(String id) {
+        String result = dao.getParentIds(id);
+        return result;
+    }
+
+    @Override
+    public List<PersonVo> getChild(PersonListDto personListDto) {
+        String idsStr = this.getChildIds(personListDto.getId());
+        personListDto.setIdsStr(idsStr);
+        List<PersonVo> result = dao.select(personListDto);
+        return result;
+    }
+
+    @Override
+    public List<PersonVo> getParent(PersonListDto personListDto) {
+        String idsStr = this.getParentIds(personListDto.getId());
+        personListDto.setIdsStr(idsStr);
+        List<PersonVo> result = dao.select(personListDto);
+        return result;
+    }
 }

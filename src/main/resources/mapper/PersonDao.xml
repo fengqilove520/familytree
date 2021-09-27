@@ -33,8 +33,20 @@
             <if test="sex != null">
                 and sex = #{sex}
             </if>
+            <if test="idsStr !=null and idsStr !=''">
+                and find_in_set(id,#{idsStr})
+            </if>
         </where>
     </select>
+
+    <select id="getChildIds" resultType="java.lang.String">
+        SELECT f_get_person_child (#{id}) FROM DUAL
+    </select>
+
+    <select id="getParentIds" resultType="java.lang.String">
+        SELECT f_get_person_parent (#{id}) FROM DUAL
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
       delete from person
       where id = #{id,jdbcType=VARCHAR}
