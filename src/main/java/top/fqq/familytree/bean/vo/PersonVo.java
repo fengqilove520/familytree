@@ -88,5 +88,10 @@ public class PersonVo implements Serializable {
      */
     private List<PersonVo> children;
 
+    /**
+     * 配偶
+     */
+    private List<PersonVo> mate;
+
     private static final long serialVersionUID = 1L;
 }

@@ -1,6 +1,7 @@
 package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.UUID;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -62,7 +63,7 @@ public class PersonServiceImpl implements PersonService {
     private Integer update(PersonDto personDto) {
         PersonPo personPo = new PersonPo();
         BeanUtil.copyProperties(personDto, personPo);
-        Integer result = dao.updateByPrimaryKeySelective(personPo);
+        Integer result = dao.updateByPrimaryKey(personPo);
         return result;
     }
 
@@ -118,6 +119,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonVo getTree(PersonListDto personListDto) {
         List<PersonVo> personVos = this.getChild(personListDto);
+        List<String> mateIds = new ArrayList<>();
         personVos.forEach(item -> {
             //标识根
             if ((item.getId().equals(personListDto.getId()))) {
@@ -126,12 +128,35 @@ public class PersonServiceImpl implements PersonService {
             if (StringUtil.isEmpty(item.getPid())) {
                 item.setPid(SysConst.ROOT_VALUE);
             }
+            if (StringUtil.isNotEmpty(item.getMateId())) {
+                mateIds.add(item.getMateId());
+            }
         });
-
+        if (CollUtil.isNotEmpty(mateIds)) {
+            PersonListDto param = new PersonListDto();
+            param.setIdsStr(String.join(",", mateIds));
+            List<PersonVo> mates = this.getList(param);
+            for (PersonVo personVo : personVos) {
+                if (StringUtil.isEmpty(personVo.getMateId())) {
+                    continue;
+                }
+                mates.forEach(item -> {
+                    if (personVo.getMateId().equals(item.getId())) {
+                        if (personVo.getMate() == null) {
+                            List<PersonVo> mateTemps = new ArrayList<>();
+                            mateTemps.add(item);
+                            personVo.setMate(mateTemps);
+                        } else {
+                            personVo.getMate().add(item);
+                        }
+                    }
+                });
+            }
+        }
         personVos = this.createTree(SysConst.ROOT_VALUE, personVos.stream().collect(groupingBy(PersonVo::getPid)));
         PersonVo personVo = new PersonVo();
         personVo.setId(SysConst.ROOT_VALUE);
-        personVo.setName("冯");
+        personVo.setName(" ");
         personVo.setChildren(personVos);
         return personVo;
     }
