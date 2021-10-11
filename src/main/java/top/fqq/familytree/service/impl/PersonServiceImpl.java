@@ -85,6 +85,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<PersonVo> getList(PersonListDto personListDto) {
         List<PersonVo> personVos = dao.select(personListDto);
+        personVos.forEach(item -> {
+            if (StringUtil.isEmpty(item.getImageUrl())) {
+                item.setImageUrl("./" + item.getSex() + ".jpg");
+            }
+        });
         return personVos;
     }
 
@@ -104,7 +109,7 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonVo> getChild(PersonListDto personListDto) {
         String idsStr = this.getChildIds(personListDto.getId());
         personListDto.setIdsStr(idsStr);
-        List<PersonVo> result = dao.select(personListDto);
+        List<PersonVo> result = this.getList(personListDto);
         return result;
     }
 

@@ -94,4 +94,6 @@ public class PersonVo implements Serializable {
     private List<PersonVo> mate;
 
     private static final long serialVersionUID = 1L;
+
+    private String imageUrl;
 }
