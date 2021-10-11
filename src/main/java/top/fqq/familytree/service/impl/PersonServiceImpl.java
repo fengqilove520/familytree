@@ -116,7 +116,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonVo> getTree(PersonListDto personListDto) {
+    public PersonVo getTree(PersonListDto personListDto) {
         List<PersonVo> personVos = this.getChild(personListDto);
         personVos.forEach(item -> {
             //标识根
@@ -129,7 +129,11 @@ public class PersonServiceImpl implements PersonService {
         });
 
         personVos = this.createTree(SysConst.ROOT_VALUE, personVos.stream().collect(groupingBy(PersonVo::getPid)));
-        return personVos;
+        PersonVo personVo = new PersonVo();
+        personVo.setId(SysConst.ROOT_VALUE);
+        personVo.setName("冯");
+        personVo.setChildren(personVos);
+        return personVo;
     }
 
     private List<PersonVo> createTree(String pid, Map<String, List<PersonVo>> map) {

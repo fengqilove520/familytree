@@ -86,5 +86,5 @@ public interface PersonService {
      *
      * @return
      */
-    List<PersonVo> getTree(PersonListDto personListDto);
+    PersonVo getTree(PersonListDto personListDto);
 }

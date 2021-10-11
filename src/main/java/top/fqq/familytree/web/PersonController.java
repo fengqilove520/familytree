@@ -72,8 +72,8 @@ public class PersonController {
 
     @PostMapping("getTree")
     public MessageResult<PersonVo> getTree(@RequestBody PersonListDto personListDto) {
-        List<PersonVo> personVos = personService.getTree(personListDto);
-        return MessageResult.success(personVos);
+        PersonVo personVo = personService.getTree(personListDto);
+        return MessageResult.success(personVo);
     }
 
 
