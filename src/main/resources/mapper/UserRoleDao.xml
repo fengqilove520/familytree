@@ -2,149 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.fqq.familytree.dao.UserRoleDao">
     <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.po.UserRolePo">
-        <id column="ID" jdbcType="VARCHAR" property="id"/>
-        <result column="NAME" jdbcType="VARCHAR" property="name"/>
-        <result column="CODE" jdbcType="VARCHAR" property="code"/>
-        <result column="DESC" jdbcType="VARCHAR" property="desc"/>
-        <result column="TYPE" jdbcType="INTEGER" property="type"/>
-        <result column="URL" jdbcType="VARCHAR" property="url"/>
-        <result column="PID" jdbcType="VARCHAR" property="pid"/>
-        <result column="PATH" jdbcType="VARCHAR" property="path"/>
-        <result column="ORDER" jdbcType="INTEGER" property="order"/>
-        <result column="ICON" jdbcType="VARCHAR" property="icon"/>
+        <id column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <id column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
     </resultMap>
-    <sql id="Base_Column_List">
-    ID, `NAME`, CODE, `DESC`, `TYPE`, URL, PID, `PATH`, `ORDER`, ICON
-  </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from menu
-        where ID = #{id,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from menu
-    where ID = #{id,jdbcType=VARCHAR}
+    <delete id="deleteByPrimaryKey" parameterType="top.fqq.familytree.bean.po.UserRolePo">
+    delete from user_role
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+      and ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="top.fqq.familytree.bean.po.UserRolePo">
-    insert into menu (ID, `NAME`, CODE,
-      `DESC`, `TYPE`, URL, PID,
-      `PATH`, `ORDER`, ICON)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
-      #{desc,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR},
-      #{path,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR})
+    insert into user_role (USER_ID, ROLE_ID)
+    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="top.fqq.familytree.bean.po.UserRolePo">
-        insert into menu
+        insert into user_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                ID,
+            <if test="userId != null">
+                USER_ID,
             </if>
-            <if test="name != null">
-                `NAME`,
-            </if>
-            <if test="code != null">
-                CODE,
-            </if>
-            <if test="desc != null">
-                `DESC`,
-            </if>
-            <if test="type != null">
-                `TYPE`,
-            </if>
-            <if test="url != null">
-                URL,
-            </if>
-            <if test="pid != null">
-                PID,
-            </if>
-            <if test="path != null">
-                `PATH`,
-            </if>
-            <if test="order != null">
-                `ORDER`,
-            </if>
-            <if test="icon != null">
-                ICON,
+            <if test="roleId != null">
+                ROLE_ID,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=VARCHAR},
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
             </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="code != null">
-                #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="desc != null">
-                #{desc,jdbcType=VARCHAR},
-            </if>
-            <if test="type != null">
-                #{type,jdbcType=INTEGER},
-            </if>
-            <if test="url != null">
-                #{url,jdbcType=VARCHAR},
-            </if>
-            <if test="pid != null">
-                #{pid,jdbcType=VARCHAR},
-            </if>
-            <if test="path != null">
-                #{path,jdbcType=VARCHAR},
-            </if>
-            <if test="order != null">
-                #{order,jdbcType=INTEGER},
-            </if>
-            <if test="icon != null">
-                #{icon,jdbcType=VARCHAR},
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.po.UserRolePo">
-        update menu
-        <set>
-            <if test="name != null">
-                `NAME` = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="code != null">
-                CODE = #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="desc != null">
-                `DESC` = #{desc,jdbcType=VARCHAR},
-            </if>
-            <if test="type != null">
-                `TYPE` = #{type,jdbcType=INTEGER},
-            </if>
-            <if test="url != null">
-                URL = #{url,jdbcType=VARCHAR},
-            </if>
-            <if test="pid != null">
-                PID = #{pid,jdbcType=VARCHAR},
-            </if>
-            <if test="path != null">
-                `PATH` = #{path,jdbcType=VARCHAR},
-            </if>
-            <if test="order != null">
-                `ORDER` = #{order,jdbcType=INTEGER},
-            </if>
-            <if test="icon != null">
-                ICON = #{icon,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where ID = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.po.UserRolePo">
-    update menu
-    set `NAME` = #{name,jdbcType=VARCHAR},
-      CODE = #{code,jdbcType=VARCHAR},
-      `DESC` = #{desc,jdbcType=VARCHAR},
-      `TYPE` = #{type,jdbcType=INTEGER},
-      URL = #{url,jdbcType=VARCHAR},
-      PID = #{pid,jdbcType=VARCHAR},
-      `PATH` = #{path,jdbcType=VARCHAR},
-      `ORDER` = #{order,jdbcType=INTEGER},
-      ICON = #{icon,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
 </mapper>

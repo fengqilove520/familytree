@@ -1,5 +1,6 @@
 package top.fqq.familytree.web;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.dto.user.UserDto;
+import top.fqq.familytree.bean.dto.user.UserListDto;
+import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.service.UserService;
 
 import java.util.HashMap;
@@ -37,6 +41,24 @@ public class UserController {
         userMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         userMap.put("name", "Super Admin");
         return new MessageResult<>(ErrorCodeEnum.SUCCESS, userMap);
+    }
+
+    /**
+     * 用户信息
+     *
+     * @param userDto
+     * @return
+     */
+    @PostMapping("save")
+    public MessageResult save(@RequestBody UserDto userDto) {
+        Integer result = userService.save(userDto);
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, result);
+    }
+
+    @PostMapping("getPage")
+    public MessageResult<PageInfo<PersonVo>> getPage(@RequestBody UserListDto userListDto) {
+        PageInfo<PersonVo> pageInfo = userService.getPageList(userListDto);
+        return MessageResult.success(pageInfo);
     }
 
 }

@@ -12,54 +12,29 @@ import java.io.Serializable;
 @Data
 public class RoleDto implements Serializable {
     /**
-     * 菜单ID
+     * 角色ID
      */
     private String id;
 
     /**
-     * 菜单名称
+     * 名称
      */
     private String name;
 
     /**
-     * 菜单编码
+     * 编码
      */
     private String code;
 
     /**
-     * 菜单描述
+     * 描述
      */
     private String desc;
 
     /**
-     * 菜单类型
+     * 类型
      */
     private Integer type;
-
-    /**
-     * 菜单链接
-     */
-    private String url;
-
-    /**
-     * 父菜单ID
-     */
-    private String pid;
-
-    /**
-     * 菜单路径
-     */
-    private String path;
-
-    /**
-     * 菜单显示顺序
-     */
-    private Integer order;
-
-    /**
-     * 菜单图标
-     */
-    private String icon;
 
     private static final long serialVersionUID = 1L;
 }

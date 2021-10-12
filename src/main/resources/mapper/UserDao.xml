@@ -4,143 +4,149 @@
     <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.po.UserPo">
         <id column="ID" jdbcType="VARCHAR" property="id"/>
         <result column="NAME" jdbcType="VARCHAR" property="name"/>
-        <result column="CODE" jdbcType="VARCHAR" property="code"/>
-        <result column="DESC" jdbcType="VARCHAR" property="desc"/>
+        <result column="PWD" jdbcType="VARCHAR" property="pwd"/>
+        <result column="FULL_NAME" jdbcType="VARCHAR" property="fullName"/>
         <result column="TYPE" jdbcType="INTEGER" property="type"/>
-        <result column="URL" jdbcType="VARCHAR" property="url"/>
-        <result column="PID" jdbcType="VARCHAR" property="pid"/>
-        <result column="PATH" jdbcType="VARCHAR" property="path"/>
-        <result column="ORDER" jdbcType="INTEGER" property="order"/>
-        <result column="ICON" jdbcType="VARCHAR" property="icon"/>
+        <result column="SEX" jdbcType="INTEGER" property="sex"/>
+        <result column="CARD" jdbcType="VARCHAR" property="card"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="IMAGE" jdbcType="VARCHAR" property="image"/>
     </resultMap>
     <sql id="Base_Column_List">
-    ID, `NAME`, CODE, `DESC`, `TYPE`, URL, PID, `PATH`, `ORDER`, ICON
+    ID, `NAME`, PWD, FULL_NAME, `TYPE`, SEX, CARD, PHONE, EMAIL, IMAGE
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from menu
+        from user
         where ID = #{id,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from menu
+    delete from user
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="top.fqq.familytree.bean.po.UserPo"
-            useGeneratedKeys="true">
-    insert into menu (`NAME`, CODE, `DESC`,
-      `TYPE`, URL, PID, `PATH`,
-      `ORDER`, ICON)
-    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
-      #{type,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR},
-      #{order,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="top.fqq.familytree.bean.po.UserPo">
+    insert into user (ID, `NAME`, PWD,
+      FULL_NAME, `TYPE`, SEX,
+      CARD, PHONE, EMAIL,
+      IMAGE)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
+      #{fullName,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER},
+      #{card,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+      #{image,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="top.fqq.familytree.bean.po.UserPo"
-            useGeneratedKeys="true">
-        insert into menu
+    <insert id="insertSelective" parameterType="top.fqq.familytree.bean.po.UserPo">
+        insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
             <if test="name != null">
                 `NAME`,
             </if>
-            <if test="code != null">
-                CODE,
+            <if test="pwd != null">
+                PWD,
             </if>
-            <if test="desc != null">
-                `DESC`,
+            <if test="fullName != null">
+                FULL_NAME,
             </if>
             <if test="type != null">
                 `TYPE`,
             </if>
-            <if test="url != null">
-                URL,
+            <if test="sex != null">
+                SEX,
             </if>
-            <if test="pid != null">
-                PID,
+            <if test="card != null">
+                CARD,
             </if>
-            <if test="path != null">
-                `PATH`,
+            <if test="phone != null">
+                PHONE,
             </if>
-            <if test="order != null">
-                `ORDER`,
+            <if test="email != null">
+                EMAIL,
             </if>
-            <if test="icon != null">
-                ICON,
+            <if test="image != null">
+                IMAGE,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
-            <if test="code != null">
-                #{code,jdbcType=VARCHAR},
+            <if test="pwd != null">
+                #{pwd,jdbcType=VARCHAR},
             </if>
-            <if test="desc != null">
-                #{desc,jdbcType=VARCHAR},
+            <if test="fullName != null">
+                #{fullName,jdbcType=VARCHAR},
             </if>
             <if test="type != null">
                 #{type,jdbcType=INTEGER},
             </if>
-            <if test="url != null">
-                #{url,jdbcType=VARCHAR},
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
             </if>
-            <if test="pid != null">
-                #{pid,jdbcType=VARCHAR},
+            <if test="card != null">
+                #{card,jdbcType=VARCHAR},
             </if>
-            <if test="path != null">
-                #{path,jdbcType=VARCHAR},
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
             </if>
-            <if test="order != null">
-                #{order,jdbcType=INTEGER},
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
             </if>
-            <if test="icon != null">
-                #{icon,jdbcType=VARCHAR},
+            <if test="image != null">
+                #{image,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.po.UserPo">
-        update menu
+        update user
         <set>
             <if test="name != null">
                 `NAME` = #{name,jdbcType=VARCHAR},
             </if>
-            <if test="code != null">
-                CODE = #{code,jdbcType=VARCHAR},
+            <if test="pwd != null">
+                PWD = #{pwd,jdbcType=VARCHAR},
             </if>
-            <if test="desc != null">
-                `DESC` = #{desc,jdbcType=VARCHAR},
+            <if test="fullName != null">
+                FULL_NAME = #{fullName,jdbcType=VARCHAR},
             </if>
             <if test="type != null">
                 `TYPE` = #{type,jdbcType=INTEGER},
             </if>
-            <if test="url != null">
-                URL = #{url,jdbcType=VARCHAR},
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=INTEGER},
             </if>
-            <if test="pid != null">
-                PID = #{pid,jdbcType=VARCHAR},
+            <if test="card != null">
+                CARD = #{card,jdbcType=VARCHAR},
             </if>
-            <if test="path != null">
-                `PATH` = #{path,jdbcType=VARCHAR},
+            <if test="phone != null">
+                PHONE = #{phone,jdbcType=VARCHAR},
             </if>
-            <if test="order != null">
-                `ORDER` = #{order,jdbcType=INTEGER},
+            <if test="email != null">
+                EMAIL = #{email,jdbcType=VARCHAR},
             </if>
-            <if test="icon != null">
-                ICON = #{icon,jdbcType=VARCHAR},
+            <if test="image != null">
+                IMAGE = #{image,jdbcType=VARCHAR},
             </if>
         </set>
         where ID = #{id,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.po.UserPo">
-    update menu
+    update user
     set `NAME` = #{name,jdbcType=VARCHAR},
-      CODE = #{code,jdbcType=VARCHAR},
-      `DESC` = #{desc,jdbcType=VARCHAR},
+      PWD = #{pwd,jdbcType=VARCHAR},
+      FULL_NAME = #{fullName,jdbcType=VARCHAR},
       `TYPE` = #{type,jdbcType=INTEGER},
-      URL = #{url,jdbcType=VARCHAR},
-      PID = #{pid,jdbcType=VARCHAR},
-      `PATH` = #{path,jdbcType=VARCHAR},
-      `ORDER` = #{order,jdbcType=INTEGER},
-      ICON = #{icon,jdbcType=VARCHAR}
+      SEX = #{sex,jdbcType=INTEGER},
+      CARD = #{card,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      IMAGE = #{image,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

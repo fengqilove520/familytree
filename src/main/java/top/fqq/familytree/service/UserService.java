@@ -1,6 +1,9 @@
 package top.fqq.familytree.service;
 
+import com.github.pagehelper.PageInfo;
 import top.fqq.familytree.bean.dto.user.UserDto;
+import top.fqq.familytree.bean.dto.user.UserListDto;
+import top.fqq.familytree.bean.vo.PersonVo;
 
 /**
  * @author fitch
@@ -40,4 +43,11 @@ public interface UserService {
      */
     Integer delete(UserDto userDto);
 
+    /**
+     * 查询用户分页数据
+     *
+     * @param userListDto
+     * @return
+     */
+    PageInfo<PersonVo> getPageList(UserListDto userListDto);
 }

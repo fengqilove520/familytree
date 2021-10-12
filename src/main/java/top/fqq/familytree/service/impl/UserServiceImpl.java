@@ -1,14 +1,20 @@
 package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.dto.user.UserDto;
+import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
+import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.dao.UserDao;
 import top.fqq.familytree.service.UserService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
+
+import java.util.List;
 
 /**
  * @author fitch
@@ -52,5 +58,13 @@ public class UserServiceImpl implements UserService {
     public Integer delete(UserDto userDto) {
         Integer result = dao.deleteByPrimaryKey(userDto.getId());
         return result;
+    }
+
+    @Override
+    public PageInfo<PersonVo> getPageList(UserListDto userListDto) {
+        PageHelper.startPage(userListDto);
+        List<PersonVo> personVos = dao.select(userListDto);
+        PageInfo<PersonVo> pageInfo = new PageInfo<>(personVos);
+        return pageInfo;
     }
 }

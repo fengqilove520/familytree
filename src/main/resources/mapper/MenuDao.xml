@@ -26,19 +26,20 @@
     delete from menu
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="top.fqq.familytree.bean.po.MenuPo"
-            useGeneratedKeys="true">
-    insert into menu (`NAME`, CODE, `DESC`,
-      `TYPE`, URL, PID, `PATH`,
-      `ORDER`, ICON)
-    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
-      #{type,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR},
-      #{order,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="top.fqq.familytree.bean.po.MenuPo">
+    insert into menu (ID, `NAME`, CODE,
+      `DESC`, `TYPE`, URL, PID,
+      `PATH`, `ORDER`, ICON)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+      #{desc,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR},
+      #{path,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="top.fqq.familytree.bean.po.MenuPo"
-            useGeneratedKeys="true">
+    <insert id="insertSelective" parameterType="top.fqq.familytree.bean.po.MenuPo">
         insert into menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
             <if test="name != null">
                 `NAME`,
             </if>
@@ -68,6 +69,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>

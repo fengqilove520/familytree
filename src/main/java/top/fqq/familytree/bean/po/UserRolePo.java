@@ -12,54 +12,14 @@ import java.io.Serializable;
 @Data
 public class UserRolePo implements Serializable {
     /**
-     * 菜单ID
+     * 用户ID
      */
-    private String id;
+    private String userId;
 
     /**
-     * 菜单名称
+     * 业务角色ID
      */
-    private String name;
-
-    /**
-     * 菜单编码
-     */
-    private String code;
-
-    /**
-     * 菜单描述
-     */
-    private String desc;
-
-    /**
-     * 菜单类型
-     */
-    private Integer type;
-
-    /**
-     * 菜单链接
-     */
-    private String url;
-
-    /**
-     * 父菜单ID
-     */
-    private String pid;
-
-    /**
-     * 菜单路径
-     */
-    private String path;
-
-    /**
-     * 菜单显示顺序
-     */
-    private Integer order;
-
-    /**
-     * 菜单图标
-     */
-    private String icon;
+    private String roleId;
 
     private static final long serialVersionUID = 1L;
 }

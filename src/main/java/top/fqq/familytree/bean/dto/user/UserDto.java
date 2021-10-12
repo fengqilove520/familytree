@@ -12,54 +12,54 @@ import java.io.Serializable;
 @Data
 public class UserDto implements Serializable {
     /**
-     * 菜单ID
+     * 用户ID
      */
     private String id;
 
     /**
-     * 菜单名称
+     * 用户名
      */
     private String name;
 
     /**
-     * 菜单编码
+     * 用户密码
      */
-    private String code;
+    private String pwd;
 
     /**
-     * 菜单描述
+     * 用户姓名
      */
-    private String desc;
+    private String fullName;
 
     /**
-     * 菜单类型
+     * 用户类型
      */
     private Integer type;
 
     /**
-     * 菜单链接
+     * 用户性别
      */
-    private String url;
+    private Integer sex;
 
     /**
-     * 父菜单ID
+     * 用户身份证号
      */
-    private String pid;
+    private String card;
 
     /**
-     * 菜单路径
+     * 用户手机号
      */
-    private String path;
+    private String phone;
 
     /**
-     * 菜单显示顺序
+     * 用户邮箱
      */
-    private Integer order;
+    private String email;
 
     /**
-     * 菜单图标
+     * 用户图片
      */
-    private String icon;
+    private String image;
 
     private static final long serialVersionUID = 1L;
 }
