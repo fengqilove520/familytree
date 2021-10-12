@@ -1,7 +1,9 @@
 package top.fqq.familytree.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import top.fqq.familytree.bean.po.MenuPo;
 
+@Mapper
 public interface MenuDao {
     int deleteByPrimaryKey(String id);
 

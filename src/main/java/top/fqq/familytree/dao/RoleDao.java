@@ -1,7 +1,9 @@
 package top.fqq.familytree.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import top.fqq.familytree.bean.po.RolePo;
 
+@Mapper
 public interface RoleDao {
     int deleteByPrimaryKey(String id);
 

@@ -2,6 +2,7 @@ package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.po.UserPo;
 import top.fqq.familytree.dao.UserDao;
@@ -13,6 +14,7 @@ import top.fqq.familytree.util.StringUtil;
  * @author fitch
  * @date 2021/10/12 15:09
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
