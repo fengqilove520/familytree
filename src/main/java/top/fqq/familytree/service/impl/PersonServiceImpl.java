@@ -2,7 +2,6 @@ package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.UUID;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import top.fqq.familytree.bean.po.PersonPo;
 import top.fqq.familytree.bean.vo.PersonVo;
 import top.fqq.familytree.dao.PersonDao;
 import top.fqq.familytree.service.PersonService;
+import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
 
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
 
     private Integer insert(PersonDto personDto) {
         PersonPo personPo = new PersonPo();
-        personDto.setId(UUID.fastUUID().toString());
+        personDto.setId(IdUtil.generate());
         BeanUtil.copyProperties(personDto, personPo);
         Integer result = dao.insert(personPo);
         return result;

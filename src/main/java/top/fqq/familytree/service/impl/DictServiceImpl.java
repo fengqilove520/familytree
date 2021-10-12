@@ -2,7 +2,6 @@ package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.UUID;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
 import top.fqq.familytree.dao.DictDao;
 import top.fqq.familytree.service.DictService;
+import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class DictServiceImpl implements DictService {
 
     private Integer insert(DictDto dictDto) {
         DictPo dictPo = new DictPo();
-        dictDto.setId(UUID.fastUUID().toString());
+        dictDto.setId(IdUtil.generate());
         dictDto.setDeleted(false);
         BeanUtil.copyProperties(dictDto, dictPo);
         return dao.insert(dictPo);
