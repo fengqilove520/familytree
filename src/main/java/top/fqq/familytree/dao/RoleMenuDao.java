@@ -10,10 +10,4 @@ public interface RoleMenuDao {
     int insert(RoleMenuPo record);
 
     int insertSelective(RoleMenuPo record);
-
-    RoleMenuPo selectByPrimaryKey(String id);
-
-    int updateByPrimaryKeySelective(RoleMenuPo record);
-
-    int updateByPrimaryKey(RoleMenuPo record);
 }

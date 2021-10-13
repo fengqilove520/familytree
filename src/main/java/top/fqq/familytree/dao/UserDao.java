@@ -15,7 +15,7 @@ public interface UserDao {
 
     int insertSelective(UserPo record);
 
-    UserPo selectByPrimaryKey(String id);
+    UserVo selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(UserPo record);
 

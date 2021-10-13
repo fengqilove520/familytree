@@ -1,14 +1,20 @@
 package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.dto.role.RoleDto;
+import top.fqq.familytree.bean.dto.role.RoleListDto;
 import top.fqq.familytree.bean.po.RolePo;
+import top.fqq.familytree.bean.vo.RoleVo;
 import top.fqq.familytree.dao.RoleDao;
 import top.fqq.familytree.service.RoleService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
+
+import java.util.List;
 
 /**
  * @author fitch
@@ -52,5 +58,13 @@ public class RoleServiceImpl implements RoleService {
     public Integer delete(RoleDto roleDto) {
         Integer result = dao.deleteByPrimaryKey(roleDto.getId());
         return result;
+    }
+
+    @Override
+    public PageInfo<RoleVo> getPageList(RoleListDto roleListDto) {
+        PageHelper.startPage(roleListDto);
+        List<RoleVo> userVos = dao.select(roleListDto);
+        PageInfo<RoleVo> pageInfo = new PageInfo<>(userVos);
+        return pageInfo;
     }
 }

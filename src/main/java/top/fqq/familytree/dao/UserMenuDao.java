@@ -11,9 +11,4 @@ public interface UserMenuDao {
 
     int insertSelective(UserMenuPo record);
 
-    UserMenuPo selectByPrimaryKey(String id);
-
-    int updateByPrimaryKeySelective(UserMenuPo record);
-
-    int updateByPrimaryKey(UserMenuPo record);
 }

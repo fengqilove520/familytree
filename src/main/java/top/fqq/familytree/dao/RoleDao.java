@@ -1,7 +1,11 @@
 package top.fqq.familytree.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import top.fqq.familytree.bean.dto.role.RoleListDto;
 import top.fqq.familytree.bean.po.RolePo;
+import top.fqq.familytree.bean.vo.RoleVo;
+
+import java.util.List;
 
 @Mapper
 public interface RoleDao {
@@ -11,9 +15,17 @@ public interface RoleDao {
 
     int insertSelective(RolePo record);
 
-    RolePo selectByPrimaryKey(String id);
+    RoleVo selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(RolePo record);
 
     int updateByPrimaryKey(RolePo record);
+
+    /**
+     * 分页查询
+     *
+     * @param roleListDto
+     * @return
+     */
+    List<RoleVo> select(RoleListDto roleListDto);
 }

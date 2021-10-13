@@ -11,10 +11,4 @@ public interface UserRoleDao {
     int insert(UserRolePo record);
 
     int insertSelective(UserRolePo record);
-
-    UserRolePo selectByPrimaryKey(String id);
-
-    int updateByPrimaryKeySelective(UserRolePo record);
-
-    int updateByPrimaryKey(UserRolePo record);
 }

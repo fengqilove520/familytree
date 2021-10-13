@@ -1,6 +1,9 @@
 package top.fqq.familytree.service;
 
+import com.github.pagehelper.PageInfo;
 import top.fqq.familytree.bean.dto.role.RoleDto;
+import top.fqq.familytree.bean.dto.role.RoleListDto;
+import top.fqq.familytree.bean.vo.RoleVo;
 
 /**
  * @author fitch
@@ -40,4 +43,11 @@ public interface RoleService {
      */
     Integer delete(RoleDto roleDto);
 
+    /**
+     * 分页查询
+     *
+     * @param roleListDto
+     * @return
+     */
+    PageInfo<RoleVo> getPageList(RoleListDto roleListDto);
 }
