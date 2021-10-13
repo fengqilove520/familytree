@@ -1,7 +1,11 @@
 package top.fqq.familytree.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import top.fqq.familytree.bean.dto.menu.MenuListDto;
 import top.fqq.familytree.bean.po.MenuPo;
+import top.fqq.familytree.bean.vo.MenuVo;
+
+import java.util.List;
 
 @Mapper
 public interface MenuDao {
@@ -11,9 +15,17 @@ public interface MenuDao {
 
     int insertSelective(MenuPo record);
 
-    MenuPo selectByPrimaryKey(String id);
+    MenuVo selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(MenuPo record);
 
     int updateByPrimaryKey(MenuPo record);
+
+    /**
+     * 查询
+     *
+     * @param userListDto
+     * @return
+     */
+    List<MenuVo> select(MenuListDto userListDto);
 }

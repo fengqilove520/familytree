@@ -1,6 +1,9 @@
 package top.fqq.familytree.service;
 
+import com.github.pagehelper.PageInfo;
 import top.fqq.familytree.bean.dto.menu.MenuDto;
+import top.fqq.familytree.bean.dto.menu.MenuListDto;
+import top.fqq.familytree.bean.vo.MenuVo;
 
 /**
  * @author fitch
@@ -40,4 +43,11 @@ public interface MenuService {
      */
     Integer delete(MenuDto menuDto);
 
+    /**
+     * 查询分页信息
+     *
+     * @param userListDto
+     * @return
+     */
+    PageInfo<MenuVo> getPageList(MenuListDto userListDto);
 }

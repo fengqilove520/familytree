@@ -1,14 +1,20 @@
 package top.fqq.familytree.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.dto.menu.MenuDto;
+import top.fqq.familytree.bean.dto.menu.MenuListDto;
 import top.fqq.familytree.bean.po.MenuPo;
+import top.fqq.familytree.bean.vo.MenuVo;
 import top.fqq.familytree.dao.MenuDao;
 import top.fqq.familytree.service.MenuService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
+
+import java.util.List;
 
 /**
  * @author fitch
@@ -52,5 +58,13 @@ public class MenuServiceImpl implements MenuService {
     public Integer delete(MenuDto menuDto) {
         Integer result = dao.deleteByPrimaryKey(menuDto.getId());
         return result;
+    }
+
+    @Override
+    public PageInfo<MenuVo> getPageList(MenuListDto userListDto) {
+        PageHelper.startPage(userListDto);
+        List<MenuVo> userVos = dao.select(userListDto);
+        PageInfo<MenuVo> pageInfo = new PageInfo<>(userVos);
+        return pageInfo;
     }
 }

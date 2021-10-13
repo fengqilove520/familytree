@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.fqq.familytree.dao.MenuDao">
-    <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.po.MenuPo">
+
+    <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.vo.MenuVo">
         <id column="ID" jdbcType="VARCHAR" property="id"/>
         <result column="NAME" jdbcType="VARCHAR" property="name"/>
         <result column="CODE" jdbcType="VARCHAR" property="code"/>
@@ -13,19 +14,29 @@
         <result column="ORDER" jdbcType="INTEGER" property="order"/>
         <result column="ICON" jdbcType="VARCHAR" property="icon"/>
     </resultMap>
+
     <sql id="Base_Column_List">
-    ID, `NAME`, CODE, `DESC`, `TYPE`, URL, PID, `PATH`, `ORDER`, ICON
-  </sql>
+      ID, `NAME`, CODE, `DESC`, `TYPE`, URL, PID, `PATH`, `ORDER`, ICON
+    </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from menu
         where ID = #{id,jdbcType=VARCHAR}
     </select>
+
+    <select id="select" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from menu
-    where ID = #{id,jdbcType=VARCHAR}
-  </delete>
+      delete from menu
+      where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
     <insert id="insert" parameterType="top.fqq.familytree.bean.po.MenuPo">
     insert into menu (ID, `NAME`, CODE,
       `DESC`, `TYPE`, URL, PID,
@@ -34,6 +45,7 @@
       #{desc,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR},
       #{path,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR})
   </insert>
+
     <insert id="insertSelective" parameterType="top.fqq.familytree.bean.po.MenuPo">
         insert into menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,6 +113,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.po.MenuPo">
         update menu
         <set>
@@ -134,6 +147,7 @@
         </set>
         where ID = #{id,jdbcType=VARCHAR}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.po.MenuPo">
     update menu
     set `NAME` = #{name,jdbcType=VARCHAR},
@@ -147,4 +161,5 @@
       ICON = #{icon,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
 </mapper>
