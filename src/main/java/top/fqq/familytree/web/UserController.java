@@ -10,7 +10,7 @@ import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
-import top.fqq.familytree.bean.vo.PersonVo;
+import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.service.UserService;
 
 import java.util.HashMap;
@@ -56,9 +56,15 @@ public class UserController {
     }
 
     @PostMapping("getPage")
-    public MessageResult<PageInfo<PersonVo>> getPage(@RequestBody UserListDto userListDto) {
-        PageInfo<PersonVo> pageInfo = userService.getPageList(userListDto);
+    public MessageResult<PageInfo<UserVo>> getPage(@RequestBody UserListDto userListDto) {
+        PageInfo<UserVo> pageInfo = userService.getPageList(userListDto);
         return MessageResult.success(pageInfo);
     }
 
+
+    @PostMapping("delete")
+    public MessageResult<PageInfo<Integer>> delete(@RequestBody UserDto userDto) {
+        Integer result = userService.delete(userDto);
+        return MessageResult.success(result);
+    }
 }

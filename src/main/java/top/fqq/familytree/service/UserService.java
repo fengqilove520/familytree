@@ -3,7 +3,7 @@ package top.fqq.familytree.service;
 import com.github.pagehelper.PageInfo;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
-import top.fqq.familytree.bean.vo.PersonVo;
+import top.fqq.familytree.bean.vo.UserVo;
 
 /**
  * @author fitch
@@ -49,5 +49,5 @@ public interface UserService {
      * @param userListDto
      * @return
      */
-    PageInfo<PersonVo> getPageList(UserListDto userListDto);
+    PageInfo<UserVo> getPageList(UserListDto userListDto);
 }

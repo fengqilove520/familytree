@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
-import top.fqq.familytree.bean.vo.PersonVo;
+import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.dao.UserDao;
 import top.fqq.familytree.service.UserService;
 import top.fqq.familytree.util.IdUtil;
@@ -61,10 +61,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageInfo<PersonVo> getPageList(UserListDto userListDto) {
+    public PageInfo<UserVo> getPageList(UserListDto userListDto) {
         PageHelper.startPage(userListDto);
-        List<PersonVo> personVos = dao.select(userListDto);
-        PageInfo<PersonVo> pageInfo = new PageInfo<>(personVos);
+        List<UserVo> userVos = dao.select(userListDto);
+        PageInfo<UserVo> pageInfo = new PageInfo<>(userVos);
         return pageInfo;
     }
 }

@@ -91,8 +91,14 @@ public class DictPluginIntercept implements Interceptor {
                         if (!dictTypes.contains(type)) {
                             dictTypes.add(type);
                         }
+                    } else if (Integer.class == metaObject.getGetterType(field.getName())) {
+                        Dict annotation = field.getAnnotation(Dict.class);
+                        String type = annotation.type();
+                        if (!dictTypes.contains(type)) {
+                            dictTypes.add(type);
+                        }
                     } else {
-                        log.error("Escaped values can only be assigned to properties of string type!");
+                        log.error("Escaped values can only be assigned to properties of String or Integer type!");
                     }
                 });
     }

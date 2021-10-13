@@ -33,7 +33,7 @@
         from dict
         <where>
             and `type` in (
-            <foreach collection="list" item="item">
+            <foreach collection="list" item="item" separator=",">
                 #{item}
             </foreach>
             )

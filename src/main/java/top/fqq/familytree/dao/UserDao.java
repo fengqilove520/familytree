@@ -3,7 +3,7 @@ package top.fqq.familytree.dao;
 import org.apache.ibatis.annotations.Mapper;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
-import top.fqq.familytree.bean.vo.PersonVo;
+import top.fqq.familytree.bean.vo.UserVo;
 
 import java.util.List;
 
@@ -27,5 +27,5 @@ public interface UserDao {
      * @param userListDto
      * @return
      */
-    List<PersonVo> select(UserListDto userListDto);
+    List<UserVo> select(UserListDto userListDto);
 }
