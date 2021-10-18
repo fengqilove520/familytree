@@ -1,9 +1,12 @@
 package top.fqq.familytree.service;
 
 import com.github.pagehelper.PageInfo;
+import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.vo.UserVo;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author fitch
@@ -50,4 +53,20 @@ public interface UserService {
      * @return
      */
     PageInfo<UserVo> getPageList(UserListDto userListDto);
+
+    /**
+     * 查询用户详情
+     *
+     * @param userId
+     * @return
+     */
+    UserVo getUserById(String userId);
+
+    /**
+     * 验证用户登录
+     *
+     * @param loginDto
+     * @return
+     */
+    UserVo authUser(LoginDto loginDto, HttpServletResponse response);
 }

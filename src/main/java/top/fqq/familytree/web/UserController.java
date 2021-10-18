@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.Subject;
+import top.fqq.familytree.bean.SubjectContext;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.vo.UserVo;
@@ -30,16 +32,16 @@ public class UserController {
     /**
      * 用户信息
      *
-     * @param token
      * @return
      */
     @PostMapping("getDetail")
-    public MessageResult getDetail(@RequestBody String token) {
+    public MessageResult getDetail() {
+        Subject subject = SubjectContext.get();
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("roles", "admin".split(","));
         userMap.put("introduction", "aI am a super administrator");
         userMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        userMap.put("name", "Super Admin");
+        userMap.put("name", subject.getFullName());
         return new MessageResult<>(ErrorCodeEnum.SUCCESS, userMap);
     }
 

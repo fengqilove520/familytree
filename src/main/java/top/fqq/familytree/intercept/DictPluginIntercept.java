@@ -60,12 +60,14 @@ public class DictPluginIntercept implements Interceptor {
 
         if (CollUtil.isNotEmpty(dictTypes)) {
             // TODO 研究怎么走server层不和pagehelper 冲突,暂时先从前台走一圈
-            String url = "http://localhost:" + this.port + "/" + path + "/api/dict/getDictListByTypes";
+            String url = "http://localhost:" + this.port + "/" + path + "/api/dict/igAuth/getDictListByTypes";
             ResponseEntity<MessageResult> result = template.postForEntity(url, dictTypes, MessageResult.class);
             List<LinkedHashMap<String, Object>> linkedHashMaps = (List<LinkedHashMap<String, Object>>) result.getBody().getData();
-            records.forEach(item -> {
-                this.processDict(item, linkedHashMaps);
-            });
+            if (CollUtil.isNotEmpty(linkedHashMaps)) {
+                records.forEach(item -> {
+                    this.processDict(item, linkedHashMaps);
+                });
+            }
         }
         return records;
     }

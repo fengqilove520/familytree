@@ -31,3 +31,7 @@ logging:
 pagehelper:
   page-size-zero: true
 
+token:
+  expire: 1800
+  excludeAuthPath: /**/igAuth/**
+

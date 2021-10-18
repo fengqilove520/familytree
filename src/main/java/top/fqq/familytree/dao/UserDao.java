@@ -1,6 +1,7 @@
 package top.fqq.familytree.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
 import top.fqq.familytree.bean.vo.UserVo;
@@ -28,4 +29,12 @@ public interface UserDao {
      * @return
      */
     List<UserVo> select(UserListDto userListDto);
+
+    /**
+     * 验证登录用户
+     *
+     * @param loginDto
+     * @return
+     */
+    UserVo authUser(LoginDto loginDto);
 }

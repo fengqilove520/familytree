@@ -5,15 +5,21 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.fqq.familytree.bean.ErrorCodeEnum;
+import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
 import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.dao.UserDao;
+import top.fqq.familytree.exception.BizException;
 import top.fqq.familytree.service.UserService;
+import top.fqq.familytree.util.HttpUtil;
 import top.fqq.familytree.util.IdUtil;
+import top.fqq.familytree.util.JwtUtil;
 import top.fqq.familytree.util.StringUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -25,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao dao;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public Integer save(UserDto userDto) {
@@ -66,5 +75,23 @@ public class UserServiceImpl implements UserService {
         List<UserVo> userVos = dao.select(userListDto);
         PageInfo<UserVo> pageInfo = new PageInfo<>(userVos);
         return pageInfo;
+    }
+
+    @Override
+    public UserVo getUserById(String userId) {
+        UserVo userVo = dao.selectByPrimaryKey(userId);
+        return userVo;
+    }
+
+    @Override
+    public UserVo authUser(LoginDto loginDto, HttpServletResponse response) {
+        UserVo userVo = dao.authUser(loginDto);
+        if (null != userVo) {
+            String token = jwtUtil.createToken(userVo.getId(), userVo.getFullName(), userVo.getName());
+            HttpUtil.writeCookie(response, HttpUtil.TOKEN, token);
+        } else {
+            throw new BizException(ErrorCodeEnum.USER_ERROR.getCode(), ErrorCodeEnum.USER_ERROR.getMsg());
+        }
+        return userVo;
     }
 }

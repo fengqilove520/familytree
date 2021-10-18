@@ -36,7 +36,7 @@ public class DictController {
      * @param types
      * @return
      */
-    @PostMapping("/getDictListByTypes")
+    @PostMapping("/igAuth/getDictListByTypes")
     public MessageResult<List<DictVo>> getDictListByTypes(@RequestBody List<String> types) {
         List<DictVo> dictVos = dictService.getDictListByTypes(types);
         return MessageResult.success(dictVos);

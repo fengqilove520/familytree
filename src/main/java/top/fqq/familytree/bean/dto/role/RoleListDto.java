@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class RoleListDto extends BaseDto implements Serializable {
+
     /**
      * 角色ID
      */
