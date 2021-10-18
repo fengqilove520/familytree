@@ -10,17 +10,15 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import top.fqq.familytree.annotation.Dict;
-import top.fqq.familytree.bean.MessageResult;
+import top.fqq.familytree.bean.vo.DictVo;
+import top.fqq.familytree.dao.DictDao;
+import top.fqq.familytree.thread.DictThread;
 
 import java.lang.reflect.Field;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -39,14 +37,7 @@ import java.util.stream.Stream;
 public class DictPluginIntercept implements Interceptor {
 
     @Autowired
-    private RestTemplate template;
-
-    @Value("${server.port:8080}")
-    private int port;
-
-    @Value("${server.servlet.context-path:/}")
-    private String path;
-
+    private DictDao dictDao;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -59,13 +50,17 @@ public class DictPluginIntercept implements Interceptor {
         });
 
         if (CollUtil.isNotEmpty(dictTypes)) {
-            // TODO 研究怎么走server层不和pagehelper 冲突,暂时先从前台走一圈
-            String url = "http://localhost:" + this.port + "/" + path + "/api/dict/igAuth/getDictListByTypes";
-            ResponseEntity<MessageResult> result = template.postForEntity(url, dictTypes, MessageResult.class);
-            List<LinkedHashMap<String, Object>> linkedHashMaps = (List<LinkedHashMap<String, Object>>) result.getBody().getData();
-            if (CollUtil.isNotEmpty(linkedHashMaps)) {
+            //起新线程执行，解决给PageHelper冲突问题
+            DictThread dictThread = new DictThread();
+            dictThread.setTypes(dictTypes);
+            dictThread.setDictDao(dictDao);
+            dictThread.start();
+            // 获取子线程的返回值：Thread的join方法来阻塞主线程，直到子线程返回
+            dictThread.join();
+            List<DictVo> dictVos = dictThread.getDictVos();
+            if (CollUtil.isNotEmpty(dictVos)) {
                 records.forEach(item -> {
-                    this.processDict(item, linkedHashMaps);
+                    this.processDict(item, dictVos);
                 });
             }
         }
@@ -109,9 +104,9 @@ public class DictPluginIntercept implements Interceptor {
      * 处理字典数据
      *
      * @param source
-     * @param linkedHashMaps
+     * @param dictVos
      */
-    private void processDict(Object source, List<LinkedHashMap<String, Object>> linkedHashMaps) {
+    private void processDict(Object source, List<DictVo> dictVos) {
         // 拿到返回值类型
         Class<?> sourceClass = source.getClass();
         // 提取被 Dict 注解标注的属性使用的字典类型
@@ -123,7 +118,7 @@ public class DictPluginIntercept implements Interceptor {
                     if (fieldTemp.getType() == Integer.class || fieldTemp.getType() == String.class) {
                         fieldTemp.setAccessible(true);
                         Object value = fieldTemp.get(source);
-                        String valueStr = this.getDict(dict.type(), value, linkedHashMaps);
+                        String valueStr = this.getDict(dict.type(), value, dictVos);
                         field.setAccessible(true);
                         field.set(source, valueStr);
                     } else {
@@ -143,13 +138,13 @@ public class DictPluginIntercept implements Interceptor {
      *
      * @param type
      * @param code
-     * @param linkedHashMaps
+     * @param dictVos
      * @return
      */
-    private String getDict(String type, Object code, List<LinkedHashMap<String, Object>> linkedHashMaps) {
-        for (LinkedHashMap<String, Object> item : linkedHashMaps) {
-            if (item.get("type").equals(type) && item.get("code").equals(String.valueOf(code))) {
-                return String.valueOf(item.get("name"));
+    private String getDict(String type, Object code, List<DictVo> dictVos) {
+        for (DictVo item : dictVos) {
+            if (item.getType().equals(type) && item.getCode().equals(String.valueOf(code))) {
+                return String.valueOf(item.getName());
             }
         }
         return null;
