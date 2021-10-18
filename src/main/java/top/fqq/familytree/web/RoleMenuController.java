@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/10/18 15:03
  */
 @RestController
-@RequestMapping("/api/userMenu")
-public class UserMenuController {
-
-
+@RequestMapping("/api/roleMenu")
+public class RoleMenuController {
 }

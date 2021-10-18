@@ -10,9 +10,11 @@ import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
+import top.fqq.familytree.bean.vo.MenuVo;
 import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.dao.UserDao;
 import top.fqq.familytree.exception.BizException;
+import top.fqq.familytree.service.MenuService;
 import top.fqq.familytree.service.UserService;
 import top.fqq.familytree.util.HttpUtil;
 import top.fqq.familytree.util.IdUtil;
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public Integer save(UserDto userDto) {
@@ -92,6 +97,8 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new BizException(ErrorCodeEnum.USER_ERROR.getCode(), ErrorCodeEnum.USER_ERROR.getMsg());
         }
+        List<MenuVo> menuVoList = menuService.getMenuTreeByUser(userVo.getId());
+        userVo.setMenus(menuVoList);
         return userVo;
     }
 }

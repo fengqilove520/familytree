@@ -28,4 +28,12 @@ public interface MenuDao {
      * @return
      */
     List<MenuVo> select(MenuListDto userListDto);
+
+    /**
+     * 查询用户权限内的菜单
+     *
+     * @param userId
+     * @return
+     */
+    List<MenuVo> getMenuByUser(String userId);
 }

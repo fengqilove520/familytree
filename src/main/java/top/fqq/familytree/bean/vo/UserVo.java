@@ -4,6 +4,7 @@ import lombok.Data;
 import top.fqq.familytree.annotation.Dict;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author fitch
@@ -73,6 +74,11 @@ public class UserVo implements Serializable {
      * 用户图片
      */
     private String image;
+
+    /**
+     * 菜单集合
+     */
+    private List<MenuVo> menus;
 
     private static final long serialVersionUID = 1L;
 }

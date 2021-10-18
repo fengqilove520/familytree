@@ -32,6 +32,10 @@
         from menu
     </select>
 
+    <select id="getMenuByUser" resultType="top.fqq.familytree.bean.vo.MenuVo">
+
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
       delete from menu
       where ID = #{id,jdbcType=VARCHAR}

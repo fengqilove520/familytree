@@ -5,6 +5,8 @@ import top.fqq.familytree.bean.dto.menu.MenuDto;
 import top.fqq.familytree.bean.dto.menu.MenuListDto;
 import top.fqq.familytree.bean.vo.MenuVo;
 
+import java.util.List;
+
 /**
  * @author fitch
  * @date 2021/10/12 14:46
@@ -50,4 +52,20 @@ public interface MenuService {
      * @return
      */
     PageInfo<MenuVo> getPageList(MenuListDto userListDto);
+
+    /**
+     * 查询用户的菜单树
+     *
+     * @param userId
+     * @return
+     */
+    List<MenuVo> getMenuTreeByUser(String userId);
+
+    /**
+     * 查询菜单列表
+     *
+     * @param userListDto
+     * @return
+     */
+    List<MenuVo> getList(MenuListDto userListDto);
 }

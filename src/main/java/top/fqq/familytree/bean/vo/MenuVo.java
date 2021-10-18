@@ -3,6 +3,7 @@ package top.fqq.familytree.bean.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * menu
@@ -60,6 +61,8 @@ public class MenuVo implements Serializable {
      * 菜单图标
      */
     private String icon;
+
+    private List<MenuVo> children;
 
     private static final long serialVersionUID = 1L;
 }

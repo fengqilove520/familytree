@@ -9,4 +9,9 @@ import top.fqq.familytree.bean.dto.BaseDto;
  */
 @Data
 public class MenuListDto extends BaseDto {
+
+    /**
+     * 用户编号
+     */
+    private String userId;
 }
