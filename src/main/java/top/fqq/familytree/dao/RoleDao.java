@@ -28,4 +28,12 @@ public interface RoleDao {
      * @return
      */
     List<RoleVo> select(RoleListDto roleListDto);
+
+    /**
+     * 查询用户角色信息
+     *
+     * @param userId
+     * @return
+     */
+    List<RoleVo> getListByUser(String userId);
 }

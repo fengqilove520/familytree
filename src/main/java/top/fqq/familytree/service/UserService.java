@@ -77,4 +77,12 @@ public interface UserService {
      * @return
      */
     void logout(HttpServletResponse httpServletResponse);
+
+    /**
+     * 查询用户权限
+     *
+     * @param userId
+     * @return
+     */
+    UserVo getAuthByUserId(String userId);
 }

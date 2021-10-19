@@ -29,6 +29,12 @@ public class BizException extends RuntimeException {
         this.message = message;
     }
 
+    public BizException(ErrorCodeEnum errorCodeEnum) {
+        super(errorCodeEnum.getMsg());
+        this.code = errorCodeEnum.getCode();
+        this.message = errorCodeEnum.getMsg();
+    }
+
     public BizException(Integer code, String message) {
         super(message);
         this.code = code;

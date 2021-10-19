@@ -6,7 +6,8 @@ package top.fqq.familytree.bean;
  */
 public enum ErrorCodeEnum {
 
-    SUCCESS("成功", 20000), ERROR("系统异常", 50000), BIZ_ERROR("业务异常", 50001), USER_ERROR("用户名或密码不存在！", 50001);
+    SUCCESS("成功", 20000), ERROR("系统异常", 50000), BIZ_ERROR("业务异常", 50001), USER_ERROR("用户名或密码不存在！", 50001),
+    TOKEN_ERROR("token解析异常！", 50001), LOGIN_TIMEOUT_ERROR("登录超时，请重新登录", 50001);
 
     private String msg;
 

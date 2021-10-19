@@ -80,5 +80,10 @@ public class UserVo implements Serializable {
      */
     private List<MenuVo> menus;
 
+    /**
+     * 角色集合
+     */
+    private List<RoleVo> roles;
+
     private static final long serialVersionUID = 1L;
 }

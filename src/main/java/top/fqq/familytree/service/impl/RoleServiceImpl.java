@@ -67,4 +67,10 @@ public class RoleServiceImpl implements RoleService {
         PageInfo<RoleVo> pageInfo = new PageInfo<>(userVos);
         return pageInfo;
     }
+
+    @Override
+    public List<RoleVo> getListByUser(String userId) {
+        List<RoleVo> userVos = dao.getListByUser(userId);
+        return userVos;
+    }
 }

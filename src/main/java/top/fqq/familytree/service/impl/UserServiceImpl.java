@@ -6,14 +6,18 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.fqq.familytree.bean.ErrorCodeEnum;
+import top.fqq.familytree.bean.UserClaim;
 import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
+import top.fqq.familytree.bean.vo.MenuVo;
+import top.fqq.familytree.bean.vo.RoleVo;
 import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.dao.UserDao;
 import top.fqq.familytree.exception.BizException;
 import top.fqq.familytree.service.MenuService;
+import top.fqq.familytree.service.RoleService;
 import top.fqq.familytree.service.UserService;
 import top.fqq.familytree.util.HttpUtil;
 import top.fqq.familytree.util.IdUtil;
@@ -38,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public Integer save(UserDto userDto) {
@@ -91,7 +98,8 @@ public class UserServiceImpl implements UserService {
     public String authUser(LoginDto loginDto, HttpServletResponse response) {
         UserVo userVo = dao.authUser(loginDto);
         if (null != userVo) {
-            String token = jwtUtil.createToken(userVo.getId(), userVo.getFullName(), userVo.getName());
+            UserClaim userClaim = new UserClaim(userVo.getName(), userVo.getFullName());
+            String token = jwtUtil.createToken(userVo.getId(), userClaim);
             HttpUtil.writeCookie(response, HttpUtil.TOKEN, token);
             return token;
         }
@@ -101,5 +109,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout(HttpServletResponse response) {
         HttpUtil.writeCookie(response, HttpUtil.TOKEN, null);
+    }
+
+    @Override
+    public UserVo getAuthByUserId(String userId) {
+        UserVo userVo = this.getUserById(userId);
+        List<RoleVo> roleVos = roleService.getListByUser(userId);
+        userVo.setRoles(roleVos);
+        List<MenuVo> menuVos = menuService.getMenuTreeByUser(userId);
+        userVo.setMenus(menuVos);
+        return userVo;
     }
 }

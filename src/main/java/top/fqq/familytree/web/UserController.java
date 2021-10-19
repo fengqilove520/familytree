@@ -15,9 +15,6 @@ import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.service.UserService;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author fitch
  * @date 2021/9/19 13:46
@@ -34,15 +31,11 @@ public class UserController {
      *
      * @return
      */
-    @PostMapping("getDetail")
-    public MessageResult getDetail() {
+    @PostMapping("getAuth")
+    public MessageResult<UserVo> getAuth() {
         Subject subject = SubjectContext.get();
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put("roles", "admin".split(","));
-        userMap.put("introduction", "aI am a super administrator");
-        userMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        userMap.put("name", subject.getFullName());
-        return new MessageResult<>(ErrorCodeEnum.SUCCESS, userMap);
+        UserVo userVo = userService.getAuthByUserId(subject.getUserId());
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, userVo);
     }
 
     /**

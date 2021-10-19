@@ -1,6 +1,6 @@
 package top.fqq.familytree.intercept.jwt;
 
-import com.auth0.jwt.interfaces.Claim;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,8 +10,10 @@ import org.springframework.util.PathMatcher;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import top.fqq.familytree.bean.ErrorCodeEnum;
 import top.fqq.familytree.bean.Subject;
 import top.fqq.familytree.bean.SubjectContext;
+import top.fqq.familytree.bean.UserClaim;
 import top.fqq.familytree.exception.BizException;
 import top.fqq.familytree.service.UserService;
 import top.fqq.familytree.util.HttpUtil;
@@ -48,18 +50,21 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         //从请求头中取出token
         String token = HttpUtil.getCookie(httpServletRequest, HttpUtil.TOKEN);
         // 执行认证
-        if (token == null) {
-            //这里其实是登录失效,没token了   这个错误也是我自定义的，读者需要自己修改
-            throw new BizException();
+        if (StringUtil.isEmpty(token)) {
+            throw new BizException(ErrorCodeEnum.TOKEN_ERROR);
         }
         String userId = jwtUtil.getAudience(token);
-        Claim userName = jwtUtil.getClaimByName(token, "userName");
+        UserClaim userClaim = JSON.parseObject(jwtUtil.getClaimByName(token, JwtUtil.CLAIM_KEY).asString(), UserClaim.class);
         Subject subject = new Subject();
         subject.setUserId(userId);
-        subject.setUserName(userName.asString());
+        subject.setUserName(userClaim.getName());
+        subject.setFullName(userClaim.getFullName());
         SubjectContext.set(subject);
         // 验证 token
         jwtUtil.verifyToken(token, userId);
+        // 颁发新凭证
+        token = jwtUtil.createToken(userId, userClaim);
+        HttpUtil.writeCookie(httpServletResponse, HttpUtil.TOKEN, token);
         return true;
     }
 

@@ -5,6 +5,8 @@ import top.fqq.familytree.bean.dto.role.RoleDto;
 import top.fqq.familytree.bean.dto.role.RoleListDto;
 import top.fqq.familytree.bean.vo.RoleVo;
 
+import java.util.List;
+
 /**
  * @author fitch
  * @date 2021/10/12 14:46
@@ -50,4 +52,12 @@ public interface RoleService {
      * @return
      */
     PageInfo<RoleVo> getPageList(RoleListDto roleListDto);
+
+    /**
+     * 查询用户角色信息
+     *
+     * @param userId
+     * @return
+     */
+    List<RoleVo> getListByUser(String userId);
 }
