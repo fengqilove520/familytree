@@ -10,7 +10,6 @@ import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.po.UserPo;
-import top.fqq.familytree.bean.vo.MenuVo;
 import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.dao.UserDao;
 import top.fqq.familytree.exception.BizException;
@@ -89,16 +88,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVo authUser(LoginDto loginDto, HttpServletResponse response) {
+    public String authUser(LoginDto loginDto, HttpServletResponse response) {
         UserVo userVo = dao.authUser(loginDto);
         if (null != userVo) {
             String token = jwtUtil.createToken(userVo.getId(), userVo.getFullName(), userVo.getName());
             HttpUtil.writeCookie(response, HttpUtil.TOKEN, token);
-        } else {
-            throw new BizException(ErrorCodeEnum.USER_ERROR.getCode(), ErrorCodeEnum.USER_ERROR.getMsg());
+            return token;
         }
-        List<MenuVo> menuVoList = menuService.getMenuTreeByUser(userVo.getId());
-        userVo.setMenus(menuVoList);
-        return userVo;
+        throw new BizException(ErrorCodeEnum.USER_ERROR.getCode(), ErrorCodeEnum.USER_ERROR.getMsg());
+    }
+
+    @Override
+    public void logout(HttpServletResponse response) {
+        HttpUtil.writeCookie(response, HttpUtil.TOKEN, null);
     }
 }

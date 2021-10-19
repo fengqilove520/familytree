@@ -1,7 +1,5 @@
 package top.fqq.familytree.util;
 
-import org.springframework.util.Base64Utils;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2021/10/18 14:14
  */
 public class HttpUtil {
-
-    public static final String COOKIE_PATH = "Lw==";
 
     /**
      * Cookie中的token key
@@ -48,9 +44,9 @@ public class HttpUtil {
      */
     public static void writeCookie(HttpServletResponse response, String name, String value) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setPath(new String(Base64Utils.decodeFromString(COOKIE_PATH)));
+        cookie.setPath("/");
         cookie.setMaxAge(-1);
-        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(false);
         cookie.setSecure(false);
         response.addCookie(cookie);
     }

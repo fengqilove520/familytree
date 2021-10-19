@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.login.LoginVo;
-import top.fqq.familytree.bean.vo.UserVo;
 import top.fqq.familytree.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -27,9 +26,16 @@ public class LoginController {
     @PostMapping("/igAuth/login")
     public MessageResult<String> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
         LoginVo loginVo = new LoginVo();
-        loginVo.setToken(loginDto.getUsername());
-        UserVo userVo = userService.authUser(loginDto, response);
+        String token = userService.authUser(loginDto, response);
+        loginVo.setToken(token);
         return MessageResult.success(loginVo);
     }
+
+    @PostMapping("/logout")
+    public MessageResult<String> logout(HttpServletResponse httpServletResponse) {
+        userService.logout(httpServletResponse);
+        return MessageResult.success("退出成功！");
+    }
+
 
 }

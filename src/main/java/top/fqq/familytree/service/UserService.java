@@ -68,5 +68,13 @@ public interface UserService {
      * @param loginDto
      * @return
      */
-    UserVo authUser(LoginDto loginDto, HttpServletResponse response);
+    String authUser(LoginDto loginDto, HttpServletResponse response);
+
+    /**
+     * 退出
+     *
+     * @param httpServletResponse
+     * @return
+     */
+    void logout(HttpServletResponse httpServletResponse);
 }

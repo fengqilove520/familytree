@@ -1,6 +1,7 @@
 package top.fqq.familytree.bean.vo;
 
 import lombok.Data;
+import top.fqq.familytree.annotation.Dict;
 
 import java.io.Serializable;
 import java.util.List;
@@ -36,6 +37,9 @@ public class MenuVo implements Serializable {
      * 菜单类型
      */
     private Integer type;
+
+    @Dict(codeFiled = "type", type = "menu_type")
+    private String typeValue;
 
     /**
      * 菜单链接
