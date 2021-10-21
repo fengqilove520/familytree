@@ -98,6 +98,11 @@ public class MenuServiceImpl implements MenuService {
         return menuVoList;
     }
 
+    @Override
+    public List<MenuVo> getMenuListByUser(String userId) {
+        return this.getMenuByUser(userId);
+    }
+
     private List<MenuVo> getMenuByUser(String userId) {
         UserVo userVo = userService.getUserById(userId);
         List<MenuVo> menuVoList;

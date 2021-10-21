@@ -62,7 +62,7 @@ public class MenuController {
     }
 
     /**
-     * 用户信息
+     * 用户菜单树
      *
      * @return
      */
@@ -72,4 +72,17 @@ public class MenuController {
         List<MenuVo> menuVoList = menuService.getMenuTreeByUser(subject.getUserId());
         return new MessageResult<>(ErrorCodeEnum.SUCCESS, menuVoList);
     }
+
+    /**
+     * 用户菜单列表
+     *
+     * @return
+     */
+    @PostMapping("getMenuListByUser")
+    public MessageResult getMenuListByUser() {
+        Subject subject = SubjectContext.get();
+        List<MenuVo> menuVoList = menuService.getMenuListByUser(subject.getUserId());
+        return new MessageResult<>(ErrorCodeEnum.SUCCESS, menuVoList);
+    }
+
 }

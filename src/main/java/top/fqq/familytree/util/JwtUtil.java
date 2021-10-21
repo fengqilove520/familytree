@@ -61,7 +61,7 @@ public class JwtUtil {
         } catch (TokenExpiredException e) {
             log.error(e.getMessage(), e);
             //效验失败
-            throw new BizException(ErrorCodeEnum.LOGIN_TIMEOUT_ERROR);
+            throw new BizException(ErrorCodeEnum.TOKEN_EXPIRED_ERROR);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             //效验失败

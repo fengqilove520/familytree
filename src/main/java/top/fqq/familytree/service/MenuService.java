@@ -68,4 +68,12 @@ public interface MenuService {
      * @return
      */
     List<MenuVo> getList(MenuListDto userListDto);
+
+    /**
+     * 查询用户菜单列表
+     *
+     * @param userId
+     * @return
+     */
+    List<MenuVo> getMenuListByUser(String userId);
 }

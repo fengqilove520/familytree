@@ -33,7 +33,7 @@ pagehelper:
 
 token:
   # token 生命周期时长（单位: 秒）
-  expire: 60
+  expire: 600
   #忽略鉴权的路径，多个请用“,”分割
   excludeAuthPath: /**/igAuth/**
 
