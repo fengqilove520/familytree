@@ -12,7 +12,7 @@ import top.fqq.familytree.bean.dto.person.PersonDeleteDto;
 import top.fqq.familytree.bean.dto.person.PersonDto;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.vo.PersonVo;
-import top.fqq.familytree.service.PersonService;
+import top.fqq.familytree.service.IPersonService;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class PersonController {
 
     @Autowired
-    private PersonService personService;
+    private IPersonService personService;
 
 
     @PostMapping("getDetail")

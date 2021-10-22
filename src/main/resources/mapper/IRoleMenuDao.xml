@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.fqq.familytree.dao.RoleMenuDao">
+<mapper namespace="top.fqq.familytree.dao.IRoleMenuDao">
     <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.po.RoleMenuPo">
         <id column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
         <id column="MENU_ID" jdbcType="VARCHAR" property="menuId"/>

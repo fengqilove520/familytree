@@ -11,7 +11,7 @@ import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.role.RoleDto;
 import top.fqq.familytree.bean.dto.role.RoleListDto;
 import top.fqq.familytree.bean.vo.RoleVo;
-import top.fqq.familytree.service.RoleService;
+import top.fqq.familytree.service.IRoleService;
 
 /**
  * @author fitch
@@ -22,7 +22,7 @@ import top.fqq.familytree.service.RoleService;
 public class RoleController {
 
     @Autowired
-    private RoleService roleService;
+    private IRoleService roleService;
 
     /**
      * 保存

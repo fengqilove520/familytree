@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.fqq.familytree.dao.PersonDao">
+<mapper namespace="top.fqq.familytree.dao.IPersonDao">
     <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.vo.PersonVo">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>

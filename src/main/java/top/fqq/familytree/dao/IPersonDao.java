@@ -8,7 +8,7 @@ import top.fqq.familytree.bean.vo.PersonVo;
 import java.util.List;
 
 @Mapper
-public interface PersonDao {
+public interface IPersonDao {
 
     /**
      * 主键删除

@@ -11,9 +11,9 @@ import top.fqq.familytree.bean.dto.menu.MenuListDto;
 import top.fqq.familytree.bean.po.MenuPo;
 import top.fqq.familytree.bean.vo.MenuVo;
 import top.fqq.familytree.bean.vo.UserVo;
-import top.fqq.familytree.dao.MenuDao;
-import top.fqq.familytree.service.MenuService;
-import top.fqq.familytree.service.UserService;
+import top.fqq.familytree.dao.IMenuDao;
+import top.fqq.familytree.service.IMenuService;
+import top.fqq.familytree.service.IUserService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
 
@@ -30,13 +30,13 @@ import static java.util.stream.Collectors.groupingBy;
  * @date 2021/10/12 15:09
  */
 @Service
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl implements IMenuService {
 
     @Autowired
-    private MenuDao dao;
+    private IMenuDao dao;
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Override
     public Integer save(MenuDto menuDto) {

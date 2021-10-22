@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author fitch
  * @date 2021/10/12 14:46
  */
-public interface UserService {
+public interface IUserService {
 
     /**
      * 保存

@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import top.fqq.familytree.bean.po.UserRolePo;
 
 @Mapper
-public interface UserRoleDao {
+public interface IUserRoleDao {
 
     int deleteByPrimaryKey(String id);
 

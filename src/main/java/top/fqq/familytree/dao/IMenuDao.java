@@ -8,7 +8,7 @@ import top.fqq.familytree.bean.vo.MenuVo;
 import java.util.List;
 
 @Mapper
-public interface MenuDao {
+public interface IMenuDao {
     int deleteByPrimaryKey(String id);
 
     int insert(MenuPo record);

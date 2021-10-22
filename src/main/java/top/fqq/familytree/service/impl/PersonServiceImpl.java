@@ -12,8 +12,8 @@ import top.fqq.familytree.bean.dto.person.PersonDto;
 import top.fqq.familytree.bean.dto.person.PersonListDto;
 import top.fqq.familytree.bean.po.PersonPo;
 import top.fqq.familytree.bean.vo.PersonVo;
-import top.fqq.familytree.dao.PersonDao;
-import top.fqq.familytree.service.PersonService;
+import top.fqq.familytree.dao.IPersonDao;
+import top.fqq.familytree.service.IPersonService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
 
@@ -30,10 +30,10 @@ import static java.util.stream.Collectors.groupingBy;
  * @date 2021/9/16 10:20
  */
 @Service
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl implements IPersonService {
 
     @Autowired
-    private PersonDao dao;
+    private IPersonDao dao;
 
     @Override
     public PersonVo getById(String id) {

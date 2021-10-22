@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.fqq.familytree.bean.MessageResult;
 import top.fqq.familytree.bean.dto.login.LoginDto;
 import top.fqq.familytree.bean.dto.login.LoginVo;
-import top.fqq.familytree.service.UserService;
+import top.fqq.familytree.service.IUserService;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @PostMapping("/igAuth/login")
     public MessageResult<String> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {

@@ -9,8 +9,8 @@ import top.fqq.familytree.bean.dto.role.RoleDto;
 import top.fqq.familytree.bean.dto.role.RoleListDto;
 import top.fqq.familytree.bean.po.RolePo;
 import top.fqq.familytree.bean.vo.RoleVo;
-import top.fqq.familytree.dao.RoleDao;
-import top.fqq.familytree.service.RoleService;
+import top.fqq.familytree.dao.IRoleDao;
+import top.fqq.familytree.service.IRoleService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
 
@@ -21,10 +21,10 @@ import java.util.List;
  * @date 2021/10/12 15:09
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements IRoleService {
 
     @Autowired
-    private RoleDao dao;
+    private IRoleDao dao;
 
     @Override
     public Integer save(RoleDto roleDto) {

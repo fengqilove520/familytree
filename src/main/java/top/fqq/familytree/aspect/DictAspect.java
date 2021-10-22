@@ -2,7 +2,7 @@ package top.fqq.familytree.aspect;
 
 import org.aspectj.lang.annotation.AfterReturning;
 import org.springframework.beans.factory.annotation.Autowired;
-import top.fqq.familytree.service.DictService;
+import top.fqq.familytree.service.IDictService;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class DictAspect {
 
     @Autowired
-    private DictService dictService;
+    private IDictService dictService;
 
     @AfterReturning(returning = "result", pointcut = "execution(* top.fqq.familytree.dao.*.*(..))")
     public void doAfterReturing(Object result) {

@@ -13,7 +13,7 @@ import top.fqq.familytree.bean.SubjectContext;
 import top.fqq.familytree.bean.dto.user.UserDto;
 import top.fqq.familytree.bean.dto.user.UserListDto;
 import top.fqq.familytree.bean.vo.UserVo;
-import top.fqq.familytree.service.UserService;
+import top.fqq.familytree.service.IUserService;
 
 /**
  * @author fitch
@@ -24,7 +24,7 @@ import top.fqq.familytree.service.UserService;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     /**
      * 用户信息

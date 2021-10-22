@@ -8,7 +8,7 @@ import top.fqq.familytree.bean.vo.RoleVo;
 import java.util.List;
 
 @Mapper
-public interface RoleDao {
+public interface IRoleDao {
     int deleteByPrimaryKey(String id);
 
     int insert(RolePo record);

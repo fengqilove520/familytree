@@ -13,7 +13,7 @@ import top.fqq.familytree.bean.SubjectContext;
 import top.fqq.familytree.bean.dto.menu.MenuDto;
 import top.fqq.familytree.bean.dto.menu.MenuListDto;
 import top.fqq.familytree.bean.vo.MenuVo;
-import top.fqq.familytree.service.MenuService;
+import top.fqq.familytree.service.IMenuService;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
 public class MenuController {
 
     @Autowired
-    private MenuService menuService;
+    private IMenuService menuService;
 
     /**
      * 保存

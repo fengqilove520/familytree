@@ -11,7 +11,7 @@ import java.util.List;
  * @author fitch
  * @date 2021/10/12 14:46
  */
-public interface MenuService {
+public interface IMenuService {
 
     /**
      * 保存

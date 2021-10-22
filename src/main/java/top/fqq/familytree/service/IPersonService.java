@@ -8,7 +8,7 @@ import top.fqq.familytree.bean.vo.PersonVo;
 
 import java.util.List;
 
-public interface PersonService {
+public interface IPersonService {
 
     /**
      * 查询人员详情

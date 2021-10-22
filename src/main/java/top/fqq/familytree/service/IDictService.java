@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author fitch
  */
-public interface DictService {
+public interface IDictService {
 
     /**
      * 根据字典类型查询字典列表

@@ -11,7 +11,7 @@ import top.fqq.familytree.bean.vo.DictVo;
 import java.util.List;
 
 @Mapper
-public interface DictDao {
+public interface IDictDao {
 
     int deleteByPrimaryKey(String id);
 

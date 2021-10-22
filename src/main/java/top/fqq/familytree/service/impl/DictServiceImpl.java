@@ -13,8 +13,8 @@ import top.fqq.familytree.bean.po.DictPo;
 import top.fqq.familytree.bean.vo.DictCodeVo;
 import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
-import top.fqq.familytree.dao.DictDao;
-import top.fqq.familytree.service.DictService;
+import top.fqq.familytree.dao.IDictDao;
+import top.fqq.familytree.service.IDictService;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.StringUtil;
 
@@ -26,10 +26,10 @@ import java.util.List;
  * @date 2021/9/16 16:34
  */
 @Service
-public class DictServiceImpl implements DictService {
+public class DictServiceImpl implements IDictService {
 
     @Autowired
-    private DictDao dao;
+    private IDictDao dao;
 
     @Override
     public List<DictVo> getDictListByTypes(List<String> types) {

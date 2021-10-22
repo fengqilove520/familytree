@@ -14,7 +14,7 @@ import top.fqq.familytree.bean.dto.dict.DictPageDto;
 import top.fqq.familytree.bean.vo.DictCodeVo;
 import top.fqq.familytree.bean.vo.DictTypeVo;
 import top.fqq.familytree.bean.vo.DictVo;
-import top.fqq.familytree.service.DictService;
+import top.fqq.familytree.service.IDictService;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import java.util.List;
 public class DictController {
 
     @Autowired
-    private DictService dictService;
+    private IDictService dictService;
 
 
     /**

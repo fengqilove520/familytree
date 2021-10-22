@@ -15,7 +15,7 @@ import top.fqq.familytree.bean.Subject;
 import top.fqq.familytree.bean.SubjectContext;
 import top.fqq.familytree.bean.UserClaim;
 import top.fqq.familytree.exception.BizException;
-import top.fqq.familytree.service.UserService;
+import top.fqq.familytree.service.IUserService;
 import top.fqq.familytree.util.HttpUtil;
 import top.fqq.familytree.util.JwtUtil;
 import top.fqq.familytree.util.StringUtil;
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private JwtUtil jwtUtil;

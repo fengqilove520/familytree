@@ -14,11 +14,11 @@ import top.fqq.familytree.bean.po.UserPo;
 import top.fqq.familytree.bean.vo.MenuVo;
 import top.fqq.familytree.bean.vo.RoleVo;
 import top.fqq.familytree.bean.vo.UserVo;
-import top.fqq.familytree.dao.UserDao;
+import top.fqq.familytree.dao.IUserDao;
 import top.fqq.familytree.exception.BizException;
-import top.fqq.familytree.service.MenuService;
-import top.fqq.familytree.service.RoleService;
-import top.fqq.familytree.service.UserService;
+import top.fqq.familytree.service.IMenuService;
+import top.fqq.familytree.service.IRoleService;
+import top.fqq.familytree.service.IUserService;
 import top.fqq.familytree.util.HttpUtil;
 import top.fqq.familytree.util.IdUtil;
 import top.fqq.familytree.util.JwtUtil;
@@ -32,19 +32,19 @@ import java.util.List;
  * @date 2021/10/12 15:09
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private UserDao dao;
+    private IUserDao dao;
 
     @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
-    private MenuService menuService;
+    private IMenuService menuService;
 
     @Autowired
-    private RoleService roleService;
+    private IRoleService roleService;
 
     @Override
     public Integer save(UserDto userDto) {

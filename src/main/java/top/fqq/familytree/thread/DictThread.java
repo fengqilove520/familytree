@@ -2,7 +2,7 @@ package top.fqq.familytree.thread;
 
 import lombok.Data;
 import top.fqq.familytree.bean.vo.DictVo;
-import top.fqq.familytree.dao.DictDao;
+import top.fqq.familytree.dao.IDictDao;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class DictThread extends Thread {
 
-    private DictDao dictDao;
+    private IDictDao dictDao;
 
     private List<String> types;
 

@@ -9,7 +9,7 @@ import top.fqq.familytree.bean.vo.UserVo;
 import java.util.List;
 
 @Mapper
-public interface UserDao {
+public interface IUserDao {
     int deleteByPrimaryKey(String id);
 
     int insert(UserPo record);
