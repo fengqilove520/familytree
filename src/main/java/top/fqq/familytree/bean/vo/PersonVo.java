@@ -21,9 +21,19 @@ public class PersonVo implements Serializable {
     private String id;
 
     /**
-     * 名称
+     * 姓氏
+     */
+    private String familyName;
+
+    /**
+     * 名字
      */
     private String name;
+
+    /**
+     * 辈分
+     */
+    private String generation;
 
     /**
      * 性别
@@ -31,15 +41,49 @@ public class PersonVo implements Serializable {
     private Integer sex;
 
     /**
-     * 性别
+     * 户籍省份
      */
-    @Dict(codeFiled = "sex", type = "sex")
-    private String sexValue;
+    private String domicileProvince;
+
+    /**
+     * 户籍城市
+     */
+    private String domicileCity;
+
+    /**
+     * 户籍县城
+     */
+    private String domicileCounty;
+
+    /**
+     * 户籍城镇
+     */
+    private String domicileTown;
 
     /**
      * 户籍地址
      */
     private String domicilePlace;
+
+    /**
+     * 居住省份
+     */
+    private String residentialProvince;
+
+    /**
+     * 居住城市
+     */
+    private String residentialCity;
+
+    /**
+     * 居住县城
+     */
+    private String residentialCounty;
+
+    /**
+     * 居住乡镇
+     */
+    private String residentialTown;
 
     /**
      * 居住地址
@@ -82,6 +126,12 @@ public class PersonVo implements Serializable {
      * 创建人
      */
     private String createUser;
+
+    /**
+     * 性别
+     */
+    @Dict(codeFiled = "sex", type = "sex")
+    private String sexValue;
 
     /**
      * 子孙

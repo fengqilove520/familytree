@@ -3,9 +3,19 @@
 <mapper namespace="top.fqq.familytree.dao.IPersonDao">
     <resultMap id="BaseResultMap" type="top.fqq.familytree.bean.vo.PersonVo">
         <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="family_name" jdbcType="VARCHAR" property="familyName"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="generation" jdbcType="VARCHAR" property="generation"/>
         <result column="sex" jdbcType="BOOLEAN" property="sex"/>
+        <result column="domicile_province" jdbcType="VARCHAR" property="domicileProvince"/>
+        <result column="domicile_city" jdbcType="VARCHAR" property="domicileCity"/>
+        <result column="domicile_county" jdbcType="VARCHAR" property="domicileCounty"/>
+        <result column="domicile_town" jdbcType="VARCHAR" property="domicileTown"/>
         <result column="domicile_place" jdbcType="VARCHAR" property="domicilePlace"/>
+        <result column="residential_province" jdbcType="VARCHAR" property="residentialProvince"/>
+        <result column="residential_city" jdbcType="VARCHAR" property="residentialCity"/>
+        <result column="residential_county" jdbcType="VARCHAR" property="residentialCounty"/>
+        <result column="residential_town" jdbcType="VARCHAR" property="residentialTown"/>
         <result column="residential_address" jdbcType="VARCHAR" property="residentialAddress"/>
         <result column="birth_time" jdbcType="TIMESTAMP" property="birthTime"/>
         <result column="death_time" jdbcType="TIMESTAMP" property="deathTime"/>
@@ -16,8 +26,10 @@
         <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
     </resultMap>
     <sql id="Base_Column_List">
-      id, `name`, sex, domicile_place, residential_address, birth_time, death_time, pid,
-      mate_id, deleted, create_time, create_user
+        id, family_name, `name`, generation, sex, domicile_province, domicile_city, domicile_county,
+        domicile_town, domicile_place, residential_province, residential_city, residential_county,
+        residential_town, residential_address, birth_time, death_time, pid, mate_id, deleted,
+        create_time, create_user
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -50,32 +62,70 @@
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-      delete from person
-      where id = #{id,jdbcType=VARCHAR}
+        delete from person
+        where id = #{id,jdbcType=VARCHAR}
     </delete>
 
     <insert id="insert" parameterType="top.fqq.familytree.bean.po.PersonPo" useGeneratedKeys="true">
-      insert into person (id, `name`, sex, domicile_place,
-      residential_address, birth_time, death_time,
-      pid, mate_id, deleted,
-      create_time, create_user)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=BOOLEAN}, #{domicilePlace,jdbcType=VARCHAR},
-      #{residentialAddress,jdbcType=VARCHAR}, #{birthTime,jdbcType=TIMESTAMP}, #{deathTime,jdbcType=TIMESTAMP},
-      #{pid,jdbcType=VARCHAR}, #{mateId,jdbcType=VARCHAR}, #{deleted,jdbcType=BOOLEAN},
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR})
+         insert into person (id, family_name, `name`,
+          generation, sex, domicile_province,
+          domicile_city, domicile_county, domicile_town,
+          domicile_place, residential_province, residential_city,
+          residential_county, residential_town, residential_address,
+          birth_time, death_time, pid,
+          mate_id, deleted, create_time,
+          create_user)
+        values (#{id,jdbcType=VARCHAR}, #{familyName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+          #{generation,jdbcType=VARCHAR}, #{sex,jdbcType=BOOLEAN}, #{domicileProvince,jdbcType=VARCHAR},
+          #{domicileCity,jdbcType=VARCHAR}, #{domicileCounty,jdbcType=VARCHAR}, #{domicileTown,jdbcType=VARCHAR},
+          #{domicilePlace,jdbcType=VARCHAR}, #{residentialProvince,jdbcType=VARCHAR}, #{residentialCity,jdbcType=VARCHAR},
+          #{residentialCounty,jdbcType=VARCHAR}, #{residentialTown,jdbcType=VARCHAR}, #{residentialAddress,jdbcType=VARCHAR},
+          #{birthTime,jdbcType=TIMESTAMP}, #{deathTime,jdbcType=TIMESTAMP}, #{pid,jdbcType=VARCHAR},
+          #{mateId,jdbcType=VARCHAR}, #{deleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP},
+          #{createUser,jdbcType=VARCHAR})
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="top.fqq.familytree.bean.po.PersonPo">
         update person
         <set>
+            <if test="familyName != null">
+                family_name = #{familyName,jdbcType=VARCHAR},
+            </if>
             <if test="name != null">
                 `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="generation != null">
+                generation = #{generation,jdbcType=VARCHAR},
             </if>
             <if test="sex != null">
                 sex = #{sex,jdbcType=BOOLEAN},
             </if>
+            <if test="domicileProvince != null">
+                domicile_province = #{domicileProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="domicileCity != null">
+                domicile_city = #{domicileCity,jdbcType=VARCHAR},
+            </if>
+            <if test="domicileCounty != null">
+                domicile_county = #{domicileCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="domicileTown != null">
+                domicile_town = #{domicileTown,jdbcType=VARCHAR},
+            </if>
             <if test="domicilePlace != null">
                 domicile_place = #{domicilePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="residentialProvince != null">
+                residential_province = #{residentialProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="residentialCity != null">
+                residential_city = #{residentialCity,jdbcType=VARCHAR},
+            </if>
+            <if test="residentialCounty != null">
+                residential_county = #{residentialCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="residentialTown != null">
+                residential_town = #{residentialTown,jdbcType=VARCHAR},
             </if>
             <if test="residentialAddress != null">
                 residential_address = #{residentialAddress,jdbcType=VARCHAR},
@@ -105,19 +155,28 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.po.PersonPo">
-      update person
-      set `name` = #{name,jdbcType=VARCHAR},
-        sex = #{sex,jdbcType=BOOLEAN},
-        domicile_place = #{domicilePlace,jdbcType=VARCHAR},
-        residential_address = #{residentialAddress,jdbcType=VARCHAR},
-        birth_time = #{birthTime,jdbcType=TIMESTAMP},
-        death_time = #{deathTime,jdbcType=TIMESTAMP},
-        pid = #{pid,jdbcType=VARCHAR},
-        mate_id = #{mateId,jdbcType=VARCHAR},
-        deleted = #{deleted,jdbcType=BOOLEAN},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        create_user = #{createUser,jdbcType=VARCHAR}
-      where id = #{id,jdbcType=VARCHAR}
+    <update id="updateByPrimaryKey" parameterType="top.fqq.familytree.bean.po.PersonPo">update person
+        set family_name = #{familyName,jdbcType=VARCHAR},
+          `name` = #{name,jdbcType=VARCHAR},
+          generation = #{generation,jdbcType=VARCHAR},
+          sex = #{sex,jdbcType=BOOLEAN},
+          domicile_province = #{domicileProvince,jdbcType=VARCHAR},
+          domicile_city = #{domicileCity,jdbcType=VARCHAR},
+          domicile_county = #{domicileCounty,jdbcType=VARCHAR},
+          domicile_town = #{domicileTown,jdbcType=VARCHAR},
+          domicile_place = #{domicilePlace,jdbcType=VARCHAR},
+          residential_province = #{residentialProvince,jdbcType=VARCHAR},
+          residential_city = #{residentialCity,jdbcType=VARCHAR},
+          residential_county = #{residentialCounty,jdbcType=VARCHAR},
+          residential_town = #{residentialTown,jdbcType=VARCHAR},
+          residential_address = #{residentialAddress,jdbcType=VARCHAR},
+          birth_time = #{birthTime,jdbcType=TIMESTAMP},
+          death_time = #{deathTime,jdbcType=TIMESTAMP},
+          pid = #{pid,jdbcType=VARCHAR},
+          mate_id = #{mateId,jdbcType=VARCHAR},
+          deleted = #{deleted,jdbcType=BOOLEAN},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          create_user = #{createUser,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
     </update>
 </mapper>
